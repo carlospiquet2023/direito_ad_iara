@@ -128,6 +128,70 @@
             margin-bottom: 30px;
         }
 
+        /* Hero card */
+        .hero-card {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 6px 18px rgba(30,58,138,0.06);
+            margin-bottom: 18px;
+        }
+
+        .hero-icon {
+            flex: 0 0 64px;
+            height: 64px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), #2563eb);
+            display: grid;
+            place-items: center;
+            color: white;
+            font-size: 28px;
+            box-shadow: 0 6px 12px rgba(37,99,235,0.12);
+        }
+
+        .hero-content h2 {
+            margin: 0 0 6px 0;
+            font-size: 1.25rem;
+            color: var(--dark);
+        }
+
+        .hero-content p {
+            margin: 0 0 8px 0;
+            color: #374151;
+            font-size: 0.98rem;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 10px 14px;
+            background: var(--primary);
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(30,58,138,0.12);
+            transition: transform 0.14s ease, box-shadow 0.14s ease;
+            margin-top: 6px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(30,58,138,0.18);
+        }
+
+        .muted-link {
+            display: inline-block;
+            margin-left: 12px;
+            color: #6b7280;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+
         .category-section h3 {
             color: var(--secondary);
             margin-bottom: 15px;
@@ -256,17 +320,17 @@
         <!-- Vade Mecum -->
         <div id="vademecum" class="content-area active">
             <div class="vademecum-section">
-                <h2>📚 Vade Mecum Online</h2>
-
-                <div class="category-section">
-                    <h3>⚖️ Consulta de Leis Federais</h3>
-                    <div class="laws-grid">
-                        <a href="https://www.lexml.gov.br" target="_blank" class="law-card">
-                            <div class="law-title">🔍 Portal LexML Brasil</div>
-                            <div class="law-desc">Acesse todas as leis federais brasileiras atualizadas. Busque por Constituição Federal, Códigos, Leis específicas e muito mais.</div>
-                        </a>
+                <section class="hero-card" aria-labelledby="vade-title" aria-describedby="vade-desc">
+                    <div class="hero-icon" aria-hidden="true">📚</div>
+                    <div class="hero-content">
+                        <h2 id="vade-title">Vade Mecum Online — Leis Federais</h2>
+                        <p id="vade-desc">Acesse com rapidez a legislação federal brasileira atualizada: Constituição, Códigos, leis e decretos. Ferramenta ideal para estudos, pesquisas e consultas práticas.</p>
+                        <div>
+                            <a class="cta-button" href="https://www.lexml.gov.br" target="_blank" rel="noopener noreferrer">Abrir Portal LexML Brasil</a>
+                        </div>
                     </div>
-                </div>
+                </section>
+                
             </div>
         </div>
     </div>
