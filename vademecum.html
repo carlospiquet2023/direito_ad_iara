@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vade Mecum Online</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #7c2d12;
+            --accent: #b91c1c;
+            --dark: #111827;
+            --light: #f9fafb;
+            --card: #ffffff;
+            --shadow: rgba(0,0,0,0.1);
+            --border: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--card);
+            padding: clamp(16px, 4vw, 24px);
+            margin-bottom: clamp(16px, 4vw, 32px);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px var(--shadow);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+        }
+
+        /* Navigation */
+        .nav-tabs {
+            display: flex;
+            background: var(--card);
+            border-radius: 12px;
+            padding: 6px;
+            margin-bottom: clamp(16px, 4vw, 32px);
+            box-shadow: 0 2px 4px var(--shadow);
+            gap: 6px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            flex: 0 0 auto;
+            padding: clamp(12px, 3vw, 16px) clamp(16px, 4vw, 20px);
+            border: none;
+            background: transparent;
+            color: #6b7280;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 2px 4px rgba(30, 58, 138, 0.2);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: #f3f4f6;
+        }
+
+        /* Content Areas */
+        .content-area {
+            display: none;
+        }
+
+        .content-area.active {
+            display: block;
+        }
+
+        /* Vade Mecum Section */
+        .vademecum-section {
+            background: var(--card);
+            padding: clamp(20px, 4vw, 24px);
+            border-radius: 12px;
+            box-shadow: 0 2px 4px var(--shadow);
+            margin-bottom: clamp(24px, 5vw, 40px);
+        }
+
+        .vademecum-section h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+        }
+
+        .category-section {
+            margin-bottom: 30px;
+        }
+
+        .category-section h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .laws-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .law-card {
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: var(--dark);
+        }
+
+        .law-card:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
+        }
+
+        .law-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .law-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Chat Section */
+        .chat-section {
+            background: var(--card);
+            padding: clamp(20px, 4vw, 24px);
+            border-radius: 12px;
+            box-shadow: 0 2px 4px var(--shadow);
+            margin-bottom: clamp(24px, 5vw, 40px);
+        }
+
+        .chat-section h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+        }
+
+        .chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .chat-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .form-select, .form-input {
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-select:focus, .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .chat-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            align-self: flex-start;
+        }
+
+        .chat-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .chat-results {
+            margin-top: 20px;
+        }
+
+        .result-card {
+            background: #f0f9ff;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 4px solid #0ea5e9;
+        }
+
+        .result-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .result-link {
+            color: #0369a1;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .result-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 20px 0;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #e5e7eb;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-text {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            margin-bottom: 5px;
+        }
+
+        .footer-developer {
+            font-size: 0.8rem;
+            color: #d1d5db;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+
+            .nav-tabs {
+                padding: 4px;
+                gap: 4px;
+            }
+
+            .tab-btn {
+                padding: 12px 16px;
+                font-size: 0.95rem;
+            }
+
+            .laws-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-form {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Vade Mecum Online</h1>
+            <div class="subtitle">Consulta Rápida às Leis Federais</div>
+        </header>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('vademecum', this)">
+                <span>📚 Vade Mecum</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('busca', this)">
+                <span>🔍 Busca Inteligente</span>
+            </button>
+        </div>
+
+        <!-- Vade Mecum -->
+        <div id="vademecum" class="content-area active">
+            <div class="vademecum-section">
+                <h2>📚 Vade Mecum Online</h2>
+
+                <div class="category-section">
+                    <h3>⚖️ Constituição Federal</h3>
+                    <div class="laws-grid">
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:constituicao:1988-10-05" target="_blank" class="law-card">
+                            <div class="law-title">Constituição Federal de 1988</div>
+                            <div class="law-desc">Texto constitucional completo com Emendas</div>
+                        </a>
+                        <a href="https://www.lexml.gov.br/busca/search?f1=ementa&q=emenda+constitucional" target="_blank" class="law-card">
+                            <div class="law-title">Emendas Constitucionais</div>
+                            <div class="law-desc">Todas as Emendas à Constituição Federal</div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="category-section">
+                    <h3>📜 Códigos e Leis Gerais</h3>
+                    <div class="laws-grid">
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2002-01-10;10406" target="_blank" class="law-card">
+                            <div class="law-title">Código Civil (Lei 10.406/2002)</div>
+                            <div class="law-desc">Direito Civil - Obrigações, Contratos, Bens</div>
+                        </a>
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1940-12-07;2848" target="_blank" class="law-card">
+                            <div class="law-title">Código Penal (Decreto-Lei 2.848/1940)</div>
+                            <div class="law-desc">Direito Penal - Crimes e Penas</div>
+                        </a>
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto.lei:1941-12-03;3689" target="_blank" class="law-card">
+                            <div class="law-title">Código de Processo Penal (Decreto-Lei 3.689/1941)</div>
+                            <div class="law-desc">Processo Penal - Inquérito, Ação Penal, Recursos</div>
+                        </a>
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1973-08-11;5869" target="_blank" class="law-card">
+                            <div class="law-title">Código de Processo Civil (Lei 5.869/1973)</div>
+                            <div class="law-desc">Processo Civil - Ações, Recursos, Execução</div>
+                        </a>
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1995-02-28;8958" target="_blank" class="law-card">
+                            <div class="law-title">Código de Defesa do Consumidor (Lei 8.078/1990)</div>
+                            <div class="law-desc">Direitos do Consumidor</div>
+                        </a>
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1990-09-11;8078" target="_blank" class="law-card">
+                            <div class="law-title">Código de Defesa do Consumidor (Lei 8.078/1990)</div>
+                            <div class="law-desc">Direitos do Consumidor</div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="category-section">
+                    <h3>🏛️ Direito Administrativo</h3>
+                    <div class="laws-grid">
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1993-06-08;8666" target="_blank" class="law-card">
+                            <div class="law-title">Lei de Licitações (Lei 8.666/1993)</div>
+                            <div class="law-desc">Licitações e Contratos Administrativos</div>
+                        </a>
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2021-04-12;14133" target="_blank" class="law-card">
+                            <div class="law-title">Nova Lei de Licitações (Lei 14.133/2021)</div>
+                            <div class="law-desc">Licitações e Contratos Administrativos Modernos</div>
+                        </a>
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1990-05-18;8112" target="_blank" class="law-card">
+                            <div class="law-title">Estatuto dos Servidores (Lei 8.112/1990)</div>
+                            <div class="law-desc">Regime Jurídico dos Servidores Públicos</div>
+                        </a>
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1997-07-12;9504" target="_blank" class="law-card">
+                            <div class="law-title">Lei da Improbidade (Lei 8.429/1992)</div>
+                            <div class="law-desc">Atos de Improbidade Administrativa</div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="category-section">
+                    <h3>💼 Direito do Trabalho</h3>
+                    <div class="laws-grid">
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1943-05-01;5452" target="_blank" class="law-card">
+                            <div class="law-title">Consolidação das Leis do Trabalho (CLT)</div>
+                            <div class="law-desc">Direito do Trabalho - Contrato de Trabalho</div>
+                        </a>
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1998-04-20;9610" target="_blank" class="law-card">
+                            <div class="law-title">Lei dos Direitos Autorais (Lei 9.610/1998)</div>
+                            <div class="law-desc">Propriedade Intelectual</div>
+                        </a>
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2011-03-25;12403" target="_blank" class="law-card">
+                            <div class="law-title">Lei da Liberdade Econômica (Lei 13.874/2019)</div>
+                            <div class="law-desc">Liberdade Econômica e Empresarial</div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="category-section">
+                    <h3>🏦 Direito Empresarial</h3>
+                    <div class="laws-grid">
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1976-12-15;6385" target="_blank" class="law-card">
+                            <div class="law-title">Lei das S.A. (Lei 6.404/1976)</div>
+                            <div class="law-desc">Sociedades Anônimas</div>
+                        </a>
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2005-12-29;11101" target="_blank" class="law-card">
+                            <div class="law-title">Lei da Recuperação Judicial (Lei 11.101/2005)</div>
+                            <div class="law-desc">Falência e Recuperação de Empresas</div>
+                        </a>
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1994-12-29;9077" target="_blank" class="law-card">
+                            <div class="law-title">Lei do Plano Real (Lei 9.069/1994)</div>
+                            <div class="law-desc">Estabilização Monetária</div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="category-section">
+                    <h3>🌍 Direito Ambiental</h3>
+                    <div class="laws-grid">
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1998-01-12;9605" target="_blank" class="law-card">
+                            <div class="law-title">Lei de Crimes Ambientais (Lei 9.605/1998)</div>
+                            <div class="law-desc">Proteção ao Meio Ambiente</div>
+                        </a>
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1981-08-28;6938" target="_blank" class="law-card">
+                            <div class="law-title">Política Nacional do Meio Ambiente (Lei 6.938/1981)</div>
+                            <div class="law-desc">Política Ambiental Brasileira</div>
+                        </a>
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2015-07-17;13185" target="_blank" class="law-card">
+                            <div class="law-title">Lei da Mata Atlântica (Lei 11.428/2006)</div>
+                            <div class="law-desc">Proteção da Mata Atlântica</div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="category-section">
+                    <h3>👨‍👩‍👧‍👦 Direito de Família</h3>
+                    <div class="laws-grid">
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2009-07-07;12010" target="_blank" class="law-card">
+                            <div class="law-title">Lei Maria da Penha (Lei 11.340/2006)</div>
+                            <div class="law-desc">Violência Doméstica contra a Mulher</div>
+                        </a>
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2010-03-26;12229" target="_blank" class="law-card">
+                            <div class="law-title">Estatuto da Criança e do Adolescente (Lei 8.069/1990)</div>
+                            <div class="law-desc">Direitos da Criança e Adolescente</div>
+                        </a>
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2015-05-20;13065" target="_blank" class="law-card">
+                            <div class="law-title">Lei do Divórcio (Lei 6.515/1977)</div>
+                            <div class="law-desc">Dissolução do Casamento</div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="category-section">
+                    <h3>💻 Direito Digital</h3>
+                    <div class="laws-grid">
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2014-04-23;12965" target="_blank" class="law-card">
+                            <div class="law-title">Marco Civil da Internet (Lei 12.965/2014)</div>
+                            <div class="law-desc">Direitos e Deveres na Internet</div>
+                        </a>
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2018-08-14;13709" target="_blank" class="law-card">
+                            <div class="law-title">LGPD (Lei 13.709/2018)</div>
+                            <div class="law-desc">Proteção de Dados Pessoais</div>
+                        </a>
+                        <a href="https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2021-05-04;14165" target="_blank" class="law-card">
+                            <div class="law-title">Lei do PIX (Lei 14.286/2021)</div>
+                            <div class="law-desc">Sistema de Pagamentos Instantâneos</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Busca Inteligente -->
+        <div id="busca" class="content-area">
+            <div class="chat-section">
+                <h2>🔍 Busca Inteligente de Leis</h2>
+
+                <div class="chat-container">
+                    <form class="chat-form" onsubmit="buscarLei(event)">
+                        <div class="form-group">
+                            <label class="form-label" for="area-direito">Área do Direito:</label>
+                            <select class="form-select" id="area-direito" required>
+                                <option value="">Selecione uma área...</option>
+                                <option value="civil">Direito Civil</option>
+                                <option value="penal">Direito Penal</option>
+                                <option value="constitucional">Direito Constitucional</option>
+                                <option value="administrativo">Direito Administrativo</option>
+                                <option value="trabalho">Direito do Trabalho</option>
+                                <option value="empresarial">Direito Empresarial</option>
+                                <option value="ambiental">Direito Ambiental</option>
+                                <option value="familia">Direito de Família</option>
+                                <option value="digital">Direito Digital</option>
+                                <option value="processual">Direito Processual</option>
+                                <option value="tributario">Direito Tributário</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="pergunta">O que você procura?</label>
+                            <input type="text" class="form-input" id="pergunta" placeholder="Ex: contrato de compra e venda, crime de furto, habeas corpus..." required>
+                        </div>
+
+                        <button type="submit" class="chat-btn">🔍 Buscar Lei</button>
+                    </form>
+
+                    <div class="chat-results" id="resultados">
+                        <!-- Resultados aparecerão aqui -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Direito Administrativo</a>
+                <a href="civil.html">Direito Civil</a>
+                <a href="vademecum.html">Vade Mecum</a>
+                <a href="politica_lgpd.html">LGPD</a>
+                <a href="termos_de_uso.html">Termos de Uso</a>
+            </div>
+            <div class="footer-text">© 2024 Plataforma de Estudos Jurídicos</div>
+            <div class="footer-developer">Desenvolvido por Professor Carlos Piquet</div>
+        </div>
+    </footer>
+
+    <script>
+        // Funções de navegação
+        function switchTab(tabName, button) {
+            // Esconder todas as abas
+            const contentAreas = document.querySelectorAll('.content-area');
+            contentAreas.forEach(area => area.classList.remove('active'));
+
+            // Remover classe active de todos os botões
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+
+            // Mostrar aba selecionada
+            document.getElementById(tabName).classList.add('active');
+            button.classList.add('active');
+        }
+
+        // Base de dados de leis por área
+        const leisPorArea = {
+            civil: [
+                { titulo: "Código Civil - Parte Geral", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2002-01-10;10406", descricao: "Livro I - Parte Geral" },
+                { titulo: "Código Civil - Obrigações", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2002-01-10;10406", descricao: "Livro I - Obrigações" },
+                { titulo: "Código Civil - Contratos", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2002-01-10;10406", descricao: "Livro I - Contratos em Geral" },
+                { titulo: "Código Civil - Responsabilidade Civil", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2002-01-10;10406", descricao: "Arts. 927-943" },
+                { titulo: "Lei da Propriedade Industrial", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1996-05-14;9279", descricao: "Propriedade Intelectual" }
+            ],
+            penal: [
+                { titulo: "Código Penal", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1940-12-07;2848", descricao: "Parte Geral e Especial" },
+                { titulo: "Lei de Crimes Hediondos", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1990-07-25;8069", descricao: "Lei 8.072/1990" },
+                { titulo: "Lei de Drogas", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2006-08-23;11343", descricao: "Lei 11.343/2006" },
+                { titulo: "Lei Maria da Penha", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2006-08-07;11340", descricao: "Violência Doméstica" }
+            ],
+            constitucional: [
+                { titulo: "Constituição Federal", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:constituicao:1988-10-05", descricao: "Texto completo com Emendas" },
+                { titulo: "Emendas Constitucionais", link: "https://www.lexml.gov.br/busca/search?f1=ementa&q=emenda+constitucional", descricao: "Todas as Emendas" },
+                { titulo: "ADCT", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:constituicao:1988-10-05", descricao: "Ato das Disposições Constitucionais Transitórias" }
+            ],
+            administrativo: [
+                { titulo: "Lei de Licitações", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1993-06-08;8666", descricao: "Lei 8.666/1993" },
+                { titulo: "Nova Lei de Licitações", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2021-04-12;14133", descricao: "Lei 14.133/2021" },
+                { titulo: "Estatuto dos Servidores", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1990-05-18;8112", descricao: "Lei 8.112/1990" },
+                { titulo: "Lei da Improbidade", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1992-06-02;8429", descricao: "Lei 8.429/1992" }
+            ],
+            trabalho: [
+                { titulo: "CLT", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1943-05-01;5452", descricao: "Consolidação das Leis do Trabalho" },
+                { titulo: "Lei da Reforma Trabalhista", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2017-07-14;13467", descricao: "Lei 13.467/2017" },
+                { titulo: "Lei do FGTS", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1980-05-13;8036", descricao: "Lei 8.036/1990" }
+            ],
+            empresarial: [
+                { titulo: "Lei das S.A.", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1976-12-15;6385", descricao: "Lei 6.404/1976" },
+                { titulo: "Lei da Recuperação Judicial", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2005-12-29;11101", descricao: "Lei 11.101/2005" },
+                { titulo: "Código Comercial", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1850-09-25;556", descricao: "Antigo Código Comercial" }
+            ],
+            ambiental: [
+                { titulo: "Lei de Crimes Ambientais", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1998-01-12;9605", descricao: "Lei 9.605/1998" },
+                { titulo: "Política Nacional do Meio Ambiente", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1981-08-28;6938", descricao: "Lei 6.938/1981" },
+                { titulo: "Lei da Mata Atlântica", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2006-08-06;11428", descricao: "Lei 11.428/2006" }
+            ],
+            familia: [
+                { titulo: "Código Civil - Direito de Família", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2002-01-10;10406", descricao: "Livro IV" },
+                { titulo: "Lei Maria da Penha", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2006-08-07;11340", descricao: "Lei 11.340/2006" },
+                { titulo: "Estatuto da Criança e do Adolescente", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1990-07-13;8069", descricao: "Lei 8.069/1990" }
+            ],
+            digital: [
+                { titulo: "Marco Civil da Internet", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2014-04-23;12965", descricao: "Lei 12.965/2014" },
+                { titulo: "LGPD", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2018-08-14;13709", descricao: "Lei 13.709/2018" },
+                { titulo: "Lei do PIX", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2021-05-04;14165", descricao: "Lei 14.286/2021" }
+            ],
+            processual: [
+                { titulo: "Código de Processo Civil", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1973-08-11;5869", descricao: "Lei 5.869/1973" },
+                { titulo: "Código de Processo Penal", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto.lei:1941-12-03;3689", descricao: "Decreto-Lei 3.689/1941" },
+                { titulo: "Lei dos Juizados Especiais", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1995-07-26;9099", descricao: "Lei 9.099/1995" }
+            ],
+            tributario: [
+                { titulo: "Código Tributário Nacional", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1966-12-27;5172", descricao: "Lei 5.172/1966" },
+                { titulo: "Lei de Execução Fiscal", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1980-09-17;6830", descricao: "Lei 6.830/1980" },
+                { titulo: "Lei do ISS", link: "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2003-12-23;11638", descricao: "Lei Complementar 116/2003" }
+            ]
+        };
+
+        // Função de busca
+        function buscarLei(event) {
+            event.preventDefault();
+
+            const area = document.getElementById('area-direito').value;
+            const pergunta = document.getElementById('pergunta').value.toLowerCase();
+            const resultadosDiv = document.getElementById('resultados');
+
+            if (!area) {
+                alert('Por favor, selecione uma área do direito.');
+                return;
+            }
+
+            // Filtrar leis relevantes baseado na pergunta
+            const leisArea = leisPorArea[area] || [];
+            const resultados = leisArea.filter(lei =>
+                lei.titulo.toLowerCase().includes(pergunta) ||
+                lei.descricao.toLowerCase().includes(pergunta) ||
+                pergunta.split(' ').some(palavra =>
+                    lei.titulo.toLowerCase().includes(palavra) ||
+                    lei.descricao.toLowerCase().includes(palavra)
+                )
+            );
+
+            // Se não encontrou resultados específicos, mostrar todas as leis da área
+            const leisParaMostrar = resultados.length > 0 ? resultados : leisArea;
+
+            // Gerar HTML dos resultados
+            let html = '<h3>📋 Resultados da Busca</h3>';
+
+            if (leisParaMostrar.length === 0) {
+                html += '<p>Nenhuma lei encontrada para esta busca. Tente reformular sua pergunta.</p>';
+            } else {
+                leisParaMostrar.forEach(lei => {
+                    html += `
+                        <div class="result-card">
+                            <div class="result-title">${lei.titulo}</div>
+                            <div class="result-desc">${lei.descricao}</div>
+                            <a href="${lei.link}" target="_blank" class="result-link">📖 Ver Lei Completa no LexML</a>
+                        </div>
+                    `;
+                });
+            }
+
+            // Adicionar sugestão de busca geral se não encontrou nada específico
+            if (resultados.length === 0 && leisArea.length > 0) {
+                html += `
+                    <div class="result-card">
+                        <div class="result-title">🔍 Busca Geral no LexML</div>
+                        <div class="result-desc">Não encontrou o que procura? Faça uma busca geral:</div>
+                        <a href="https://www.lexml.gov.br/busca/search?q=${encodeURIComponent(pergunta)}" target="_blank" class="result-link">🔎 Buscar "${pergunta}" no LexML</a>
+                    </div>
+                `;
+            }
+
+            resultadosDiv.innerHTML = html;
+        }
+
+        // Limpar resultados quando mudar a área
+        document.getElementById('area-direito').addEventListener('change', function() {
+            document.getElementById('resultados').innerHTML = '';
+        });
+    </script>
+</body>
+</html>
