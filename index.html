@@ -38,15 +38,15 @@
         /* Header */
         header {
             background: var(--card);
-            padding: 24px;
-            margin-bottom: 32px;
+            padding: clamp(16px, 4vw, 24px);
+            margin-bottom: clamp(16px, 4vw, 32px);
             border-radius: 12px;
             box-shadow: 0 4px 6px var(--shadow);
             text-align: center;
         }
 
         h1 {
-            font-size: 2.2rem;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             font-weight: 700;
             color: var(--primary);
             margin-bottom: 8px;
@@ -54,7 +54,7 @@
 
         .subtitle {
             color: #6b7280;
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 3vw, 1.2rem);
         }
 
         /* Navigation */
@@ -63,14 +63,22 @@
             background: var(--card);
             border-radius: 12px;
             padding: 6px;
-            margin-bottom: 32px;
+            margin-bottom: clamp(16px, 4vw, 32px);
             box-shadow: 0 2px 4px var(--shadow);
             gap: 6px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
         }
 
         .tab-btn {
-            flex: 1;
-            padding: 14px 20px;
+            flex: 0 0 auto;
+            padding: clamp(12px, 3vw, 16px) clamp(16px, 4vw, 20px);
             border: none;
             background: transparent;
             color: #6b7280;
@@ -78,7 +86,8 @@
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            white-space: nowrap;
         }
 
         .tab-btn.active {
@@ -103,14 +112,14 @@
         /* Study Section */
         .study-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            margin-bottom: 32px;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(280px, 40vw, 350px), 1fr));
+            gap: clamp(16px, 3vw, 24px);
+            margin-bottom: clamp(24px, 5vw, 40px);
         }
 
         .topic-card {
             background: var(--card);
-            padding: 24px;
+            padding: clamp(20px, 4vw, 24px);
             border-radius: 12px;
             box-shadow: 0 2px 4px var(--shadow);
             border-left: 4px solid var(--primary);
@@ -126,16 +135,16 @@
         .topic-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
+            gap: clamp(8px, 2vw, 12px);
+            margin-bottom: clamp(12px, 2vw, 16px);
         }
 
         .topic-icon {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 4vw, 2rem);
         }
 
         .topic-title {
-            font-size: 1.3rem;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
             font-weight: 600;
             color: var(--primary);
         }
@@ -215,41 +224,42 @@
         /* Quiz Styles */
         .quiz-intro {
             text-align: center;
-            margin-bottom: 32px;
+            margin-bottom: clamp(24px, 5vw, 32px);
         }
 
         .quiz-intro h2 {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 5vw, 2rem);
             color: var(--primary);
-            margin-bottom: 16px;
+            margin-bottom: clamp(12px, 2vw, 16px);
         }
 
         .quiz-intro p {
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 3vw, 1.1rem);
             color: #4b5563;
-            margin-bottom: 20px;
+            margin-bottom: clamp(16px, 3vw, 20px);
         }
 
         .quiz-info {
             display: flex;
             justify-content: center;
-            gap: 24px;
+            gap: clamp(12px, 3vw, 24px);
             flex-wrap: wrap;
         }
 
         .quiz-info span {
             background: #eff6ff;
             color: var(--primary);
-            padding: 8px 16px;
+            padding: clamp(6px, 2vw, 8px) clamp(12px, 3vw, 16px);
             border-radius: 20px;
             font-weight: 500;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
         }
 
         .question-card {
             background: var(--card);
             border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 20px;
+            padding: clamp(20px, 4vw, 24px);
+            margin-bottom: clamp(16px, 3vw, 20px);
             box-shadow: 0 2px 4px var(--shadow);
             border-left: 4px solid var(--secondary);
         }
@@ -258,18 +268,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: clamp(12px, 2vw, 16px);
             flex-wrap: wrap;
-            gap: 12px;
+            gap: clamp(8px, 2vw, 12px);
         }
 
         .question-number {
             background: var(--secondary);
             color: white;
-            padding: 6px 12px;
+            padding: clamp(4px, 1vw, 6px) clamp(8px, 2vw, 12px);
             border-radius: 6px;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
         }
 
         .difficulty {
@@ -408,11 +418,16 @@
             background: var(--primary);
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: clamp(12px, 3vw, 16px) clamp(20px, 5vw, 24px);
             border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.2s ease;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .reiniciar-btn:hover {
@@ -431,14 +446,15 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
+            padding: clamp(16px, 4vw, 24px);
         }
 
         .modal-content {
             background: var(--card);
-            padding: 24px;
+            padding: clamp(20px, 4vw, 24px);
             border-radius: 12px;
-            max-width: 500px;
-            width: 90%;
+            max-width: min(500px, 90vw);
+            width: 100%;
             max-height: 80vh;
             overflow-y: auto;
         }
@@ -447,20 +463,21 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: clamp(12px, 2vw, 16px);
         }
 
         .modal-title {
-            font-size: 1.3rem;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
             color: var(--primary);
         }
 
         .modal-close {
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
             cursor: pointer;
             color: #6b7280;
+            padding: clamp(4px, 1vw, 8px);
         }
 
         .modal-body p {
@@ -500,12 +517,27 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+
             .nav-tabs {
-                flex-direction: column;
+                padding: 4px;
+                gap: 4px;
+            }
+
+            .tab-btn {
+                padding: 12px 16px;
+                font-size: 0.95rem;
             }
 
             .study-grid {
                 grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .topic-card {
+                padding: 16px;
             }
 
             .resources-grid {
@@ -515,10 +547,54 @@
             .question-header {
                 flex-direction: column;
                 align-items: flex-start;
+                gap: 8px;
+            }
+
+            .quiz-options label {
+                padding: 12px;
+                margin-bottom: 8px;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 16px;
             }
 
             h1 {
                 font-size: 1.8rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 12px;
+            }
+
+            .nav-tabs {
+                padding: 2px;
+            }
+
+            .tab-btn {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+
+            .topic-card {
+                padding: 12px;
+            }
+
+            .question-card {
+                padding: 16px;
+            }
+
+            .modal-content {
+                width: 98%;
+                margin: 8px;
+                padding: 16px;
             }
         }
 
@@ -1514,41 +1590,65 @@ Inclua precedentes e legislação.
                 },
                 licitacoes: {
                     title: 'Licitações e Contratos',
-                    text: `A Lei 14.133/21 revolucionou o regime licitatório brasileiro, priorizando a eficiência e a competitividade. As modalidades incluem: concorrência (obras/ serviços > R$ 200.000), tomada de preços (obras/serviços entre R$ 100.000 e R$ 200.000), convite (até R$ 100.000) e leilão (alienação de bens).
+                    text: `<p>A <strong>Lei 14.133/21</strong> revolucionou o regime licitatório brasileiro, priorizando a eficiência e a competitividade.</p>
 
-Dispensa ocorre em casos como guerra, calamidade pública ou valor ínfimo (art. 75). Inexigibilidade para contratação de profissional de notória especialização ou obra de arte única (art. 74).
+<p><strong>Modalidades de licitação:</strong></p>
+<ul>
+<li><strong>Concorrência:</strong> obras/serviços > R$ 200.000</li>
+<li><strong>Tomada de preços:</strong> obras/serviços entre R$ 100.000 e R$ 200.000</li>
+<li><strong>Convite:</strong> até R$ 100.000</li>
+<li><strong>Leilão:</strong> alienação de bens</li>
+</ul>
 
-O Sistema de Registro de Preços (SRP) permite compras futuras sem obrigação de quantidade total, ideal para demandas variáveis. Contratos administrativos devem conter cláusulas de reajuste, revisão e reequilíbrio (arts. 60-65). A contratação integrada transfere riscos ao contratado, exigindo projeto básico detalhado (art. 46).
+<p><strong>Dispensa:</strong> ocorre em casos como guerra, calamidade pública ou valor ínfimo (art. 75).</p>
 
-Princípios: legalidade, impessoalidade, moralidade, publicidade, eficiência, competitividade, economicidade e sustentabilidade.
+<p><strong>Inexigibilidade:</strong> para contratação de profissional de notória especialização ou obra de arte única (art. 74).</p>
 
-Caso concreto: TCU, Acórdão 2.135/2018 - Anulação de licitação por sobrepreço em contratação de serviços de limpeza, pois Administração não justificou adequadamente os preços, violando princípio da economicidade.`
+<p>O <strong>Sistema de Registro de Preços (SRP)</strong> permite compras futuras sem obrigação de quantidade total, ideal para demandas variáveis.</p>
+
+<p><strong>Contratos administrativos</strong> devem conter cláusulas de reajuste, revisão e reequilíbrio (arts. 60-65). A contratação integrada transfere riscos ao contratado, exigindo projeto básico detalhado (art. 46).</p>
+
+<p><strong>Princípios:</strong> legalidade, impessoalidade, moralidade, publicidade, eficiência, competitividade, economicidade e sustentabilidade.</p>
+
+<div class="modal-case">
+<strong>Caso concreto:</strong> TCU, Acórdão 2.135/2018 - Anulação de licitação por sobrepreço em contratação de serviços de limpeza, pois Administração não justificou adequadamente os preços, violando princípio da economicidade.
+</div>`
                 },
                 bens: {
                     title: 'Bens Públicos',
-                    text: `Os bens públicos classificam-se em: dominicais (alienáveis, como terrenos vagos), de uso comum do povo (inalienáveis, como ruas e praças) e de uso especial (afetos a serviço público, como prédios públicos).
+                    text: `<p>Os bens públicos classificam-se em: <strong>dominicais</strong> (alienáveis, como terrenos vagos), <strong>de uso comum do povo</strong> (inalienáveis, como ruas e praças) e <strong>de uso especial</strong> (afetos a serviço público, como prédios públicos).</p>
 
-A afetação vincula o bem a finalidade pública específica, tornando-o inalienável enquanto afetado. A desafetação, por lei ou ato administrativo, permite alienação ou uso diverso.
+<p>A <strong>afetação</strong> vincula o bem a finalidade pública específica, tornando-o inalienável enquanto afetado. A desafetação, por lei ou ato administrativo, permite alienação ou uso diverso.</p>
 
-Alienação de bens inservíveis segue procedimento: declaração de inservibilidade, avaliação, autorização legislativa ou administrativa, leilão público (preferencialmente) ou doação a entidades assistenciais (CC art. 98, Lei 14.133/21 art. 83).
+<p><strong>Alienação de bens inservíveis</strong> segue procedimento: declaração de inservibilidade, avaliação, autorização legislativa ou administrativa, leilão público (preferencialmente) ou doação a entidades assistenciais (CC art. 98, Lei 14.133/21 art. 83).</p>
 
-Uso privativo temporário de bens de uso comum requer autorização municipal, com cobrança de taxa e garantia de acesso público. Concessão de uso é contrato oneroso por prazo determinado (até 30 anos, renovável).
+<p><strong>Uso privativo temporário</strong> de bens de uso comum requer autorização municipal, com cobrança de taxa e garantia de acesso público. Concessão de uso é contrato oneroso por prazo determinado (até 30 anos, renovável).</p>
 
-Princípios: imprescritibilidade (CF art. 183 §3º), impenhorabilidade e inalienabilidade relativa (só desafetados).
+<p><strong>Princípios:</strong> imprescritibilidade (CF art. 183 §3º), impenhorabilidade e inalienabilidade relativa (só desafetados).</p>
 
-Caso concreto: STF, RE 247.533/SP - Impossibilidade de usucapião de bem público afetado a serviço público, confirmando imprescritibilidade e inalienabilidade.`
+<div class="modal-case">
+<strong>Caso concreto:</strong> STF, RE 247.533/SP - Impossibilidade de usucapião de bem público afetado a serviço público, confirmando imprescritibilidade e inalienabilidade.
+</div>`
                 },
                 guardamunicipal: {
                     title: 'Guarda Municipal',
-                    text: `A CF/88 art. 144 §8º atribui às guardas municipais competência para proteger bens, serviços e instalações municipais, com caráter preventivo e comunitário. Não exercem policiamento ostensivo geral, que é atribuição das polícias civis e militares (competência residual da União e Estados).
+                    text: `<p>A CF/88 art. 144 §8º atribui às guardas municipais competência para proteger bens, serviços e instalações municipais, com caráter preventivo e comunitário.</p>
 
-A ADI 3.731/DF (2011) declarou inconstitucional lei municipal que autorizava guarda municipal a exercer funções típicas de polícia judiciária, como investigação criminal. Limites: não podem portar armas de fogo fora das dependências municipais, exceto em situações excepcionais (art. 6º Lei 13.022/14).
+<p><strong>Limites constitucionais:</strong> Não exercem policiamento ostensivo geral, que é atribuição das polícias civis e militares (competência residual da União e Estados).</p>
 
-Contratação temporária é vedada para cargos efetivos, mas admissível para funções de confiança ou em situações emergenciais, com prazo máximo de 2 anos (Lei 8.745/93). Processos seletivos internos são possíveis para lotação em unidades especializadas, desde que haja concurso público prévio.
+<p>A <strong>ADI 3.731/DF (2011)</strong> declarou inconstitucional lei municipal que autorizava guarda municipal a exercer funções típicas de polícia judiciária, como investigação criminal.</p>
 
-Exemplo: guarda municipal pode fiscalizar trânsito em vias municipais, mas não prender em flagrante por crime comum.
+<p><strong>Limites ao porte de armas:</strong> não podem portar armas de fogo fora das dependências municipais, exceto em situações excepcionais (art. 6º Lei 13.022/14).</p>
 
-Caso concreto: STF, ADI 3.731/DF - Município do Rio tentou criar "Força de Segurança Armada" com funções de polícia ostensiva, declarada inconstitucional por violar competência residual.`
+<p><strong>Contratação temporária:</strong> vedada para cargos efetivos, mas admissível para funções de confiança ou em situações emergenciais, com prazo máximo de 2 anos (Lei 8.745/93).</p>
+
+<p><strong>Processos seletivos internos:</strong> possíveis para lotação em unidades especializadas, desde que haja concurso público prévio.</p>
+
+<p><strong>Exemplo prático:</strong> guarda municipal pode fiscalizar trânsito em vias municipais, mas não prender em flagrante por crime comum.</p>
+
+<div class="modal-case">
+<strong>Caso concreto:</strong> STF, ADI 3.731/DF - Município do Rio tentou criar "Força de Segurança Armada" com funções de polícia ostensiva, declarada inconstitucional por violar competência residual.
+</div>`
                 },
                 reequilibrio: {
                     title: 'Reequilíbrio Contratual',
@@ -1585,63 +1685,94 @@ Caso concreto: STF, ADI 3.731/DF - Município do Rio tentou criar "Força de Seg
                 },
                 jurisprudencia: {
                     title: 'Jurisprudência',
-                    text: `Principais precedentes em Direito Administrativo:
+                    text: `<p>Principais precedentes em Direito Administrativo:</p>
 
-STF - ADI 2135/DF (2007): Restabeleceu obrigatoriedade do RJU com efeitos ex nunc, permitindo regimes mistos anteriores. Tema 246 do STF.
+<p><strong>STF - ADI 2135/DF (2007):</strong> Restabeleceu obrigatoriedade do RJU com efeitos ex nunc, permitindo regimes mistos anteriores. Tema 246 do STF.</p>
 
-STF - ADI 3731/DF (2011): Inconstitucional lei municipal que atribuía funções de polícia judiciária à guarda municipal. Preservou competência residual.
+<p><strong>STF - ADI 3731/DF (2011):</strong> Inconstitucional lei municipal que atribuía funções de polícia judiciária à guarda municipal. Preservou competência residual.</p>
 
-STF - RE 567.985/SP (2008): Consagrou responsabilidade objetiva do Estado por atos comissivos e omissivos, independentemente de culpa.
+<p><strong>STF - RE 567.985/SP (2008):</strong> Consagrou responsabilidade objetiva do Estado por atos comissivos e omissivos, independentemente de culpa.</p>
 
-STJ - REsp 1.183.124/SP (2010): Prescrição em PAD começa a correr da ciência da Administração, não do cometimento da infração.
+<p><strong>STJ - REsp 1.183.124/SP (2010):</strong> Prescrição em PAD começa a correr da ciência da Administração, não do cometimento da infração.</p>
 
-TCU - Acórdão 1807/2017: Vedação de sobrepreço em licitações; obrigatoriedade de pesquisa de mercado e justificativa de preços.
+<p><strong>TCU - Acórdão 1807/2017:</strong> Vedação de sobrepreço em licitações; obrigatoriedade de pesquisa de mercado e justificativa de preços.</p>
 
-STF - MS 24.268/DF (2006): Possibilidade de cassação de aposentadoria por conduta ilícita na ativa, mesmo após aposentadoria.
+<p><strong>STF - MS 24.268/DF (2006):</strong> Possibilidade de cassação de aposentadoria por conduta ilícita na ativa, mesmo após aposentadoria.</p>
 
-Esses precedentes orientam a aplicação prática do Direito Administrativo, equilibrando eficiência e controle.`
+<div class="modal-case">
+<strong>Caso concreto:</strong> STF, Tema 246 - Discussão sobre a constitucionalidade da EC 19/98 e seus efeitos sobre o Regime Jurídico Único dos servidores públicos, consolidando entendimento sobre regimes mistos.
+</div>
+
+<p>Esses precedentes orientam a aplicação prática do Direito Administrativo, equilibrando eficiência e controle.</p>`
                 },
                 atos: {
                     title: 'Atos Administrativos',
-                    text: `Atos administrativos são manifestações unilaterais da Administração Pública que produzem efeitos jurídicos imediatos, visando satisfação do interesse público.
+                    text: `<p>Atos administrativos são manifestações unilaterais da Administração Pública que produzem efeitos jurídicos imediatos, visando satisfação do interesse público.</p>
 
-Elementos: sujeito (órgão competente), forma (escrita, verbal), objeto (conteúdo lícito), motivo (causa jurídica), finalidade (interesse público).
+<p><strong>Elementos:</strong> sujeito (órgão competente), forma (escrita, verbal), objeto (conteúdo lícito), motivo (causa jurídica), finalidade (interesse público).</p>
 
-Atributos: presunção de legitimidade (até anulação), imperatividade (obediência obrigatória), autoexecutoriedade (execução direta), tipicidade (enquadramento legal).
+<p><strong>Atributos:</strong> presunção de legitimidade (até anulação), imperatividade (obediência obrigatória), autoexecutoriedade (execução direta), tipicidade (enquadramento legal).</p>
 
-Classificação: constitutivos/regulatórios (ex.: concessão de alvará), declaratórios (ex.: certidão), enunciativos (ex.: parecer).
+<p><strong>Classificação:</strong> constitutivos/regulatórios (ex.: concessão de alvará), declaratórios (ex.: certidão), enunciativos (ex.: parecer).</p>
 
-Vícios: incompetência, vício de forma, ilegalidade, desvio de poder. Convalidação possível se vício sanável (ex.: ratificação).
+<p><strong>Vícios:</strong> incompetência, vício de forma, ilegalidade, desvio de poder. Convalidação possível se vício sanável (ex.: ratificação).</p>
 
-Revogação: discricionária para atos discricionários; anulação: sempre que ilegal.
+<p><strong>Revogação:</strong> discricionária para atos discricionários; anulação: sempre que ilegal.</p>
 
-Caso concreto: STF, MS 24.568/DF - Anulação de ato de nomeação por desvio de poder, pois motivado por favorecimento político, não mérito.`
+<div class="modal-case">
+<strong>Caso concreto:</strong> STF, MS 24.568/DF - Anulação de ato de nomeação por desvio de poder, pois motivado por favorecimento político, não mérito.
+</div>`
                 },
                 servicos: {
                     title: 'Serviços Públicos',
-                    text: `Serviços públicos são atividades estatais de satisfação de necessidades coletivas, essenciais ou não, prestadas diretamente ou mediante delegação.
+                    text: `<p>Serviços públicos são atividades estatais de satisfação de necessidades coletivas, essenciais ou não, prestadas diretamente ou mediante delegação.</p>
 
-Princípios: continuidade, eficiência, universalidade, modicidade das tarifas, cortesia, atualidade, generalidade.
+<p><strong>Princípios:</strong> continuidade, eficiência, universalidade, modicidade das tarifas, cortesia, atualidade, generalidade.</p>
 
-Classificação: próprios do Estado (ex.: segurança pública), impróprios (delegáveis, ex.: transporte público), uti universi (fruíveis por todos) vs. uti singuli (individualizados).
+<p><strong>Classificação:</strong></p>
+<ul>
+<li><strong>Próprios do Estado:</strong> ex.: segurança pública</li>
+<li><strong>Impróprios (delegáveis):</strong> ex.: transporte público</li>
+<li><strong>Uti universi:</strong> fruíveis por todos</li>
+<li><strong>Uti singuli:</strong> individualizados</li>
+</ul>
 
-Delegação: concessão (contrato oneroso, prazo determinado, contraprestação), permissão (ato unilateral precário), autorização (ato unilateral discricionário).
+<p><strong>Formas de delegação:</strong></p>
+<ul>
+<li><strong>Concessão:</strong> contrato oneroso, prazo determinado, contraprestação</li>
+<li><strong>Permissão:</strong> ato unilateral precário</li>
+<li><strong>Autorização:</strong> ato unilateral discricionário</li>
+</ul>
 
-PPP: parceria público-privada para prestação de serviços com risco compartilhado (Lei 11.079/04).
+<p><strong>PPP:</strong> parceria público-privada para prestação de serviços com risco compartilhado (Lei 11.079/04).</p>
 
-Caso concreto: STF, ADI 1.649/DF - Declaração de inconstitucionalidade de lei que permitia concessão sem licitação para serviços de telecomunicações, violando princípios da administração pública.`
+<div class="modal-case">
+<strong>Caso concreto:</strong> STF, ADI 1.649/DF - Declaração de inconstitucionalidade de lei que permitia concessão sem licitação para serviços de telecomunicações, violando princípios da administração pública.
+</div>`
                 },
                 controle: {
                     title: 'Controle da Administração',
-                    text: `Controle visa corrigir desvios e garantir legalidade, legitimidade e eficiência da Administração.
+                    text: `<p>Controle visa corrigir desvios e garantir legalidade, legitimidade e eficiência da Administração.</p>
 
-Controle administrativo: hierárquico (órgãos superiores sobre subordinados), finalístico (tutela sobre entidades), correcional (correição).
+<p><strong>Controle administrativo:</strong></p>
+<ul>
+<li><strong>Hierárquico:</strong> órgãos superiores sobre subordinados</li>
+<li><strong>Finalístico:</strong> tutela sobre entidades</li>
+<li><strong>Correcional:</strong> correição</li>
+</ul>
 
-Controle judicial: via ações constitucionais - Mandado de Segurança (MS) contra ato ilegal/coator (CF art. 5º LXIX), Ação Popular (qualquer cidadão contra ato lesivo ao patrimônio público - Lei 4.717/65), Ação Civil Pública (Ministério Público contra danos ambientais/coletivos).
+<p><strong>Controle judicial:</strong> via ações constitucionais</p>
+<ul>
+<li><strong>Mandado de Segurança (MS):</strong> contra ato ilegal/coator (CF art. 5º LXIX)</li>
+<li><strong>Ação Popular:</strong> qualquer cidadão contra ato lesivo ao patrimônio público (Lei 4.717/65)</li>
+<li><strong>Ação Civil Pública:</strong> Ministério Público contra danos ambientais/coletivos</li>
+</ul>
 
-Controle legislativo: fiscalização orçamentária, convocação de ministros, sustação de atos normativos (CF art. 49 V, X).
+<p><strong>Controle legislativo:</strong> fiscalização orçamentária, convocação de ministros, sustação de atos normativos (CF art. 49 V, X).</p>
 
-Caso concreto: STF, MS 25.888/DF - Concessão de MS contra ato do Presidente que nomeou ministro sem requisitos legais, determinando anulação por violação ao princípio da legalidade.`
+<div class="modal-case">
+<strong>Caso concreto:</strong> STF, MS 25.888/DF - Concessão de MS contra ato do Presidente que nomeou ministro sem requisitos legais, determinando anulação por violação ao princípio da legalidade.
+</div>`
                 },
 
             };
