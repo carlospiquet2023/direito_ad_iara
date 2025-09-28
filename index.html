@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Direito Administrativo II - UERJ</title>
+    <title>Direito Administrativo II</title>
     <style>
         * {
             margin: 0;
@@ -515,6 +515,259 @@
             font-weight: 500;
         }
 
+        /* Mind Map Styles - layout em raízes (estilo da imagem) */
+        .mind-map-container {
+            background: linear-gradient(135deg, #f7fafc 0%, #eef2ff 100%);
+            border-radius: 20px;
+            padding: clamp(18px, 4vw, 36px);
+            box-shadow: 0 10px 30px rgba(14,30,120,0.06);
+            margin-bottom: clamp(20px, 4vw, 40px);
+            position: relative;
+            overflow: visible;
+        }
+
+        /* Círculo central (raiz) */
+        .mind-root-wrap {
+            display: flex;
+            justify-content: center;
+            margin-top: 12px;
+        }
+
+        .mind-root {
+            width: clamp(140px, 22vw, 220px);
+            height: clamp(140px, 22vw, 220px);
+            border-radius: 50%;
+            background: white;
+            border: 8px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 12px 30px rgba(30,58,138,0.12);
+            position: relative;
+            z-index: 5;
+        }
+
+        .mind-root::after {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            background: conic-gradient(#f97316, #06b6d4, #8b5cf6, #fb7185, #f97316);
+            filter: blur(6px);
+            z-index: -1;
+            opacity: 0.95;
+        }
+
+        .mind-root .root-title {
+            font-weight: 800;
+            color: var(--primary);
+            text-align: center;
+            font-size: clamp(1rem, 2.4vw, 1.25rem);
+            padding: 8px 12px;
+        }
+
+        /* Ramos horizontais — usamos SVG para linhas curvas dependentes da largura */
+        .mind-lines {
+            width: 100%;
+            margin-top: clamp(8px, 2vw, 12px);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Colunas coloridas com cabeçalho e cartões (estilo da imagem: colunas verticais) */
+        .mind-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: clamp(14px, 3vw, 28px);
+            margin-top: clamp(12px, 3vw, 24px);
+            align-items: start;
+        }
+
+        .branch-header {
+            height: clamp(36px, 4vw, 44px);
+            border-radius: 8px;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            padding: 0 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            margin-bottom: 12px;
+        }
+
+        .column-cards {
+            display: grid;
+            grid-auto-rows: min-content;
+            gap: 12px;
+        }
+
+        .card-mini {
+            background: white;
+            border-radius: 10px;
+            padding: 10px 12px;
+            box-shadow: 0 8px 18px rgba(2,6,23,0.06);
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            color: #0f172a;
+            line-height: 1.35;
+        }
+
+        /* Paleta por tópico (cores vibrantes como no modelo) */
+        .branch-servidores .branch-header { background: linear-gradient(90deg,#f093fb,#f5576c); }
+        .branch-licitacoes .branch-header { background: linear-gradient(90deg,#4facfe,#00f2fe); }
+        .branch-bens .branch-header { background: linear-gradient(90deg,#43e97b,#38f9d7); }
+        .branch-guarda .branch-header { background: linear-gradient(90deg,#fa709a,#fee140); color:#111827; }
+        .branch-reequilibrio .branch-header { background: linear-gradient(90deg,#a8edea,#fed6e3); color:#111827; }
+        .branch-jurisprudencia .branch-header { background: linear-gradient(90deg,#ff9a9e,#fecfef); }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .mind-root { width: 140px; height: 140px; }
+            .mind-columns { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 480px) {
+            .mind-root { width: 120px; height: 120px; }
+            .mind-columns { grid-template-columns: 1fr; }
+        }
+
+        .mind-map-node.servidores:hover {
+            box-shadow: 0 20px 40px rgba(245, 87, 108, 0.4);
+        }
+
+        .mind-map-node.licitacoes {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            box-shadow: 0 12px 30px rgba(79, 172, 254, 0.3);
+        }
+
+        .mind-map-node.licitacoes:hover {
+            box-shadow: 0 20px 40px rgba(79, 172, 254, 0.4);
+        }
+
+        .mind-map-node.bens {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            box-shadow: 0 12px 30px rgba(67, 233, 123, 0.3);
+        }
+
+        .mind-map-node.bens:hover {
+            box-shadow: 0 20px 40px rgba(67, 233, 123, 0.4);
+        }
+
+        .mind-map-node.guarda {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            box-shadow: 0 12px 30px rgba(250, 112, 154, 0.3);
+        }
+
+        .mind-map-node.guarda:hover {
+            box-shadow: 0 20px 40px rgba(250, 112, 154, 0.4);
+        }
+
+        .mind-map-node.reequilibrio {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            box-shadow: 0 12px 30px rgba(168, 237, 234, 0.3);
+        }
+
+        .mind-map-node.reequilibrio:hover {
+            box-shadow: 0 20px 40px rgba(168, 237, 234, 0.4);
+        }
+
+        .mind-map-node.jurisprudencia {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            box-shadow: 0 12px 30px rgba(255, 154, 158, 0.3);
+        }
+
+        .mind-map-node.jurisprudencia:hover {
+            box-shadow: 0 12px 35px rgba(255, 154, 158, 0.4);
+        }
+
+        .mind-map-node.root {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+            /* redução de impacto visual do bloco central */
+            box-shadow: 0 8px 18px rgba(30, 64, 175, 0.25);
+            padding: clamp(14px, 3vw, 20px);
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mind-map-node.root:hover {
+            box-shadow: 0 12px 30px rgba(30, 64, 175, 0.3);
+        }
+
+        .mind-map-node-icon {
+            font-size: clamp(1.8rem, 4.5vw, 2.2rem);
+            margin-bottom: clamp(8px, 1.5vw, 12px);
+            display: block;
+            text-align: center;
+            filter: drop-shadow(0 1px 3px rgba(0,0,0,0.12));
+        }
+
+        .mind-map-node-title {
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            margin-bottom: clamp(8px, 2vw, 12px);
+            text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
+
+        .mind-map-node-desc {
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            color: rgba(255,255,255,0.95);
+            text-align: center;
+            line-height: 1.4;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .mind-map-node.root .mind-map-node-icon {
+            font-size: clamp(3.5rem, 7vw, 4.5rem);
+        }
+
+        .mind-map-node.root .mind-map-node-title {
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+        }
+
+        .mind-map-node.root .mind-map-node-desc {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+        }
+
+        /* Conexões Orgânicas (Raízes) */
+        .mind-map-connection {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .connection-path {
+            stroke: var(--primary);
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            stroke-dasharray: 8, 4;
+            animation: flow 3s linear infinite;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        @keyframes flow {
+            0% { stroke-dashoffset: 12; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        /* Efeitos de profundidade */
+        .mind-map-node:nth-child(odd) {
+            transform: rotate(-1deg);
+        }
+
+        .mind-map-node:nth-child(even) {
+            transform: rotate(1deg);
+        }
+
+        .mind-map-node:hover {
+            transform: scale(1.05) translateY(-8px) rotate(0deg) !important;
+        }
+
+
+
         /* Responsive */
         @media (max-width: 768px) {
             .container {
@@ -651,16 +904,19 @@
         </header>
 
         <div class="nav-tabs">
-            <button class="tab-btn" onclick="switchTab('estudar', this)">
+            <button class="tab-btn active" onclick="switchTab('estudar', this)">
                 <span>📚 Estudar</span>
             </button>
-            <button class="tab-btn active" onclick="switchTab('simulado', this)">
+            <button class="tab-btn" onclick="switchTab('mapa-mental', this)">
+                <span>🧠 Mapa Mental</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('simulado', this)">
                 <span>📋 Simulado</span>
             </button>
         </div>
 
         <!-- Estudar -->
-        <div id="estudar" class="content-area">
+        <div id="estudar" class="content-area active">
             <div class="study-grid">
                 <button type="button" class="topic-card" onclick="openModal('servidores')">
                     <div class="topic-header">
@@ -826,7 +1082,7 @@
         </div>
 
         <!-- Simulado -->
-        <div id="simulado" class="content-area active">
+        <div id="simulado" class="content-area">
             <div class="quiz-intro">
                 <h2>Simulado de Direito Administrativo II</h2>
                 <p>Responda às 10 questões com enunciados completos e contextualizados. Cada questão possui 5 alternativas (A a E). Ao finalizar, utilize "Corrigir" para receber feedback por item (respostas corretas em azul, erradas em vermelho) e um comentário sucinto do professor.</p>
@@ -845,6 +1101,113 @@
                     <span>📚</span> Gabarito do Professor
                 </a>
                 <div id="resultado" class="resultado-card" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mapa Mental -->
+    <div id="mapa-mental" class="content-area">
+        <div class="mind-map-container">
+            <h2 class="mind-map-title">🧠 Mapa Mental - Direito Administrativo II</h2>
+
+            <div class="mind-map-tree">
+                <!-- Nó Raiz (Central) -->
+                <div class="mind-map-root">
+                    <div class="mind-map-node root" onclick="openModal('central')">
+                        <span class="mind-map-node-icon">🌳</span>
+                        <div class="mind-map-node-title">Direito Administrativo II</div>
+                        <div class="mind-map-node-desc">Raízes do Direito Público</div>
+                    </div>
+                </div>
+
+                <!-- Conexões SVG -->
+                <svg class="mind-map-connection" width="100%" height="200" viewBox="0 0 800 200">
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7"
+                                refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="var(--primary)" />
+                        </marker>
+                    </defs>
+
+                    <!-- Raízes curvadas conectando o nó central aos tópicos -->
+                    <path class="connection-path" d="M400,80 Q350,120 300,160" marker-end="url(#arrowhead)"/>
+                    <path class="connection-path" d="M400,80 Q400,120 400,160" marker-end="url(#arrowhead)"/>
+                    <path class="connection-path" d="M400,80 Q450,120 500,160" marker-end="url(#arrowhead)"/>
+                    <path class="connection-path" d="M400,80 Q320,140 240,180" marker-end="url(#arrowhead)"/>
+                    <path class="connection-path" d="M400,80 Q480,140 560,180" marker-end="url(#arrowhead)"/>
+                    <path class="connection-path" d="M400,80 Q380,160 360,200" marker-end="url(#arrowhead)"/>
+                </svg>
+
+                <!-- Ramos (Tópicos) -->
+                <div class="mind-map-branches">
+                    <!-- Substituído por layout em colunas tipo raízes -->
+                </div>
+
+            </div>
+
+            <!-- Linhas curvas SVG - conectam nó central às colunas -->
+            <svg class="mind-lines" viewBox="0 0 1200 180" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M600,80 C480,80 360,100 240,120" stroke="#c7d2fe" stroke-width="6" fill="none" stroke-linecap="round" />
+                <path d="M600,80 C540,82 480,96 420,116" stroke="#d8f7ff" stroke-width="6" fill="none" stroke-linecap="round" />
+                <path d="M600,80 C660,82 720,98 780,120" stroke="#fde2e4" stroke-width="6" fill="none" stroke-linecap="round" />
+                <path d="M600,80 C840,90 960,110 1080,130" stroke="#e6fffa" stroke-width="6" fill="none" stroke-linecap="round" />
+            </svg>
+
+            <!-- Colunas com cabeçalhos coloridos e cartões (estilo 'raízes') -->
+            <div class="mind-columns" role="list">
+                <div class="branch branch-servidores" role="listitem">
+                    <div class="branch-header">Servidores Públicos</div>
+                    <div class="column-cards">
+                        <div class="card-mini">Regime Jurídico Único (RJU)</div>
+                        <div class="card-mini">Ingresso: concurso público</div>
+                        <div class="card-mini">PAD e penalidades (Lei 8.112/90)</div>
+                    </div>
+                </div>
+
+                <div class="branch branch-licitacoes" role="listitem">
+                    <div class="branch-header">Licitações & Contratos</div>
+                    <div class="column-cards">
+                        <div class="card-mini">Lei 14.133/21 - princípios</div>
+                        <div class="card-mini">Modalidades e fases</div>
+                        <div class="card-mini">Contratos administrativos</div>
+                    </div>
+                </div>
+
+                <div class="branch branch-bens" role="listitem">
+                    <div class="branch-header">Bens Públicos</div>
+                    <div class="column-cards">
+                        <div class="card-mini">Classificação: dominicais, de uso</div>
+                        <div class="card-mini">Inalienabilidade e desafetação</div>
+                        <div class="card-mini">Concessão e permissão</div>
+                    </div>
+                </div>
+
+                <div class="branch branch-guarda" role="listitem">
+                    <div class="branch-header">Guarda Municipal</div>
+                    <div class="column-cards">
+                        <div class="card-mini">Competências e atribuições</div>
+                        <div class="card-mini">Limites constitucionais</div>
+                        <div class="card-mini">Colaboração com segurança pública</div>
+                    </div>
+                </div>
+
+                <div class="branch branch-reequilibrio" role="listitem">
+                    <div class="branch-header">Reequilíbrio Econômico</div>
+                    <div class="column-cards">
+                        <div class="card-mini">Teoria da imprevisão</div>
+                        <div class="card-mini">Revisão e reequilíbrio contratual</div>
+                        <div class="card-mini">Jurisprudência sobre revisão</div>
+                    </div>
+                </div>
+
+                <div class="branch branch-jurisprudencia" role="listitem">
+                    <div class="branch-header">Jurisprudência</div>
+                    <div class="column-cards">
+                        <div class="card-mini">STJ: teses importantes</div>
+                        <div class="card-mini">STF: controle e princípios</div>
+                        <div class="card-mini">Casos comentados</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1568,6 +1931,27 @@ Inclua precedentes e legislação.
 
         function openModal(topicId) {
             const contents = {
+                central: {
+                    title: '🧠 Mapa Mental - Direito Administrativo II',
+                    text: `<p><strong>Direito Administrativo II</strong> é a disciplina que aprofunda os estudos dos institutos administrativos, com ênfase nas relações jurídico-administrativas e na atuação prática do Estado.</p>
+
+<h3>🎯 Objetivos da Disciplina:</h3>
+<ul>
+<li>Compreender os regimes jurídicos dos servidores públicos</li>
+<li>Dominar o sistema de licitações e contratos administrativos</li>
+<li>Analisar a gestão e alienação de bens públicos</li>
+<li>Entender as competências da Guarda Municipal</li>
+<li>Aplicar a teoria do reequilíbrio econômico-financeiro</li>
+<li>Interpretar a jurisprudência dos tribunais superiores</li>
+</ul>
+
+<h3>📚 Metodologia:</h3>
+<p>Este mapa mental interativo permite a visualização integrada dos temas, facilitando a compreensão das conexões entre os institutos e sua aplicação prática no Direito Administrativo.</p>
+
+<div class="modal-highlight">
+<p><strong>Dica de Estudo:</strong> Navegue pelos nós coloridos para explorar cada tema em profundidade. Cada cor representa uma área específica do conhecimento.</p>
+</div>`
+                },
                 servidores: {
                     title: 'Servidores Públicos',
                     text: `<p>Como professor de Direito Administrativo com mestrado na área, destaco que o <strong>Regime Jurídico Único (RJU)</strong> estabelecido pela CF/88 (art. 39) impõe o regime estatutário para servidores públicos civis, com ingresso mediante concurso público.</p>
