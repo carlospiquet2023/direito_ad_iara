@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direito Civil - Contratos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #7c2d12;
+            --accent: #b91c1c;
+            --dark: #111827;
+            --light: #f9fafb;
+            --card: #ffffff;
+            --shadow: rgba(0,0,0,0.1);
+            --border: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--card);
+            padding: clamp(16px, 4vw, 24px);
+            margin-bottom: clamp(16px, 4vw, 32px);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px var(--shadow);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+        }
+
+        /* Navigation */
+        .nav-tabs {
+            display: flex;
+            background: var(--card);
+            border-radius: 12px;
+            padding: 6px;
+            margin-bottom: clamp(16px, 4vw, 32px);
+            box-shadow: 0 2px 4px var(--shadow);
+            gap: 6px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            flex: 0 0 auto;
+            padding: clamp(12px, 3vw, 16px) clamp(16px, 4vw, 20px);
+            border: none;
+            background: transparent;
+            color: #6b7280;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 2px 4px rgba(30, 58, 138, 0.2);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: #f3f4f6;
+        }
+
+        /* Content Areas */
+        .content-area {
+            display: none;
+        }
+
+        .content-area.active {
+            display: block;
+        }
+
+        /* Study Section */
+        .study-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(280px, 40vw, 350px), 1fr));
+            gap: clamp(16px, 3vw, 24px);
+            margin-bottom: clamp(24px, 5vw, 40px);
+        }
+
+        .topic-card {
+            background: var(--card);
+            padding: clamp(20px, 4vw, 24px);
+            border-radius: 12px;
+            box-shadow: 0 2px 4px var(--shadow);
+            border-left: 4px solid var(--primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px var(--shadow);
+        }
+
+        .topic-header {
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 2vw, 12px);
+            margin-bottom: clamp(12px, 2vw, 16px);
+        }
+
+        .topic-icon {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+        }
+
+        .topic-title {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .topic-description {
+            color: #4b5563;
+            margin-bottom: 16px;
+        }
+
+        .topic-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: #eff6ff;
+            color: var(--primary);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Resources */
+        .resources-section {
+            background: var(--card);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        .resources-section h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .resource-card {
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--dark);
+            transition: all 0.2s ease;
+            border: 1px solid var(--border);
+        }
+
+        .resource-card:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .resource-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .resource-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .resource-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Quiz Styles */
+        .quiz-intro {
+            text-align: center;
+            margin-bottom: clamp(24px, 5vw, 32px);
+        }
+
+        .quiz-intro h2 {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            color: var(--primary);
+            margin-bottom: clamp(12px, 2vw, 16px);
+        }
+
+        .quiz-intro p {
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            color: #4b5563;
+            margin-bottom: clamp(16px, 3vw, 20px);
+        }
+
+        .quiz-info {
+            display: flex;
+            justify-content: center;
+            gap: clamp(12px, 3vw, 24px);
+            flex-wrap: wrap;
+        }
+
+        .quiz-info span {
+            background: #eff6ff;
+            color: var(--primary);
+            padding: clamp(6px, 2vw, 8px) clamp(12px, 3vw, 16px);
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+
+        .question-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: clamp(20px, 4vw, 24px);
+            margin-bottom: clamp(16px, 3vw, 20px);
+            box-shadow: 0 2px 4px var(--shadow);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: clamp(12px, 2vw, 16px);
+            flex-wrap: wrap;
+            gap: clamp(8px, 2vw, 12px);
+        }
+
+        .question-number {
+            background: var(--secondary);
+            color: white;
+            padding: clamp(4px, 1vw, 6px) clamp(8px, 2vw, 12px);
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+        }
+
+        .difficulty {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .difficulty.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .quiz-options label {
+            display: block;
+            background: #f8fafc;
+            margin-bottom: 8px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .quiz-options label:hover {
+            background: #f1f5f9;
+            border-color: var(--primary);
+        }
+
+        .quiz-options input[type="radio"] {
+            margin-right: 12px;
+            accent-color: var(--secondary);
+        }
+
+        .quiz-options input[type="radio"]:checked + * {
+            background: #fef2f2;
+            border-color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .result-section {
+            text-align: center;
+            margin-top: 32px;
+        }
+
+        .show-answer-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .show-answer-btn:hover {
+            background: #991b1b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(185, 28, 28, 0.3);
+        }
+
+        .resultado-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+            box-shadow: 0 4px 12px var(--shadow);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .resultado-header h3 {
+            color: var(--primary);
+            font-size: 1.6rem;
+            margin-bottom: 16px;
+        }
+
+        .resultado-score {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .score-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        .score-percentage {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .resultado-feedback p {
+            font-size: 1rem;
+            color: #4b5563;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* ícones de correção */
+        .opt .icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: none;
+        }
+        .opt.correct .icon { display: inline; color: var(--primary); }
+        .opt.wrong .icon { display: inline; color: var(--accent); }
+        .opt.correct { box-shadow: 0 4px 12px rgba(30,58,138,0.08); }
+        .opt.wrong { box-shadow: 0 4px 12px rgba(185,28,28,0.06); }
+
+        .reiniciar-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: clamp(12px, 3vw, 16px) clamp(20px, 5vw, 24px);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .reiniciar-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: clamp(16px, 4vw, 24px);
+        }
+
+        .modal-content {
+            background: var(--card);
+            padding: clamp(20px, 4vw, 24px);
+            border-radius: 12px;
+            max-width: min(500px, 90vw);
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: clamp(12px, 2vw, 16px);
+        }
+
+        .modal-title {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            color: var(--primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            cursor: pointer;
+            color: #6b7280;
+            padding: clamp(4px, 1vw, 8px);
+        }
+
+        .modal-body p {
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .modal-body strong {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .modal-body ul, .modal-body ol {
+            margin: 16px 0;
+            padding-left: 20px;
+        }
+
+        .modal-body li {
+            margin-bottom: 8px;
+        }
+
+        .modal-highlight {
+            background: #eff6ff;
+            padding: 12px;
+            border-left: 4px solid var(--primary);
+            margin: 16px 0;
+            font-style: italic;
+        }
+
+        .modal-case {
+            background: #f0f9ff;
+            padding: 12px;
+            border-left: 4px solid #0ea5e9;
+            margin: 16px 0;
+            font-weight: 500;
+        }
+
+        /* Mind Map Styles */
+        .mind-map-container {
+            background: linear-gradient(135deg, #f7fafc 0%, #eef2ff 100%);
+            border-radius: 20px;
+            padding: clamp(18px, 4vw, 36px);
+            box-shadow: 0 10px 30px rgba(14,30,120,0.06);
+            margin-bottom: clamp(20px, 4vw, 40px);
+            position: relative;
+            overflow: visible;
+        }
+
+        .mind-root-wrap {
+            display: flex;
+            justify-content: center;
+            margin-top: 12px;
+        }
+
+        .mind-root {
+            width: clamp(140px, 22vw, 220px);
+            height: clamp(140px, 22vw, 220px);
+            border-radius: 50%;
+            background: white;
+            border: 8px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 12px 30px rgba(30, 58, 138, 0.12);
+            position: relative;
+            z-index: 5;
+        }
+
+        .mind-root::after {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            background: conic-gradient(#f97316, #06b6d4, #8b5cf6, #fb7185, #f97316);
+            filter: blur(6px);
+            z-index: -1;
+            opacity: 0.95;
+        }
+
+        .mind-root .root-title {
+            font-weight: 800;
+            color: var(--primary);
+            text-align: center;
+            font-size: clamp(1rem, 2.4vw, 1.25rem);
+            padding: 8px 12px;
+        }
+
+        .mind-lines {
+            width: 100%;
+            margin-top: clamp(8px, 2vw, 12px);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .mind-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: clamp(14px, 3vw, 28px);
+            margin-top: clamp(12px, 3vw, 24px);
+            align-items: start;
+        }
+
+        .branch-header {
+            height: clamp(36px, 4vw, 44px);
+            border-radius: 8px;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            padding: 0 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            margin-bottom: 12px;
+        }
+
+        .column-cards {
+            display: grid;
+            grid-auto-rows: min-content;
+            gap: 12px;
+        }
+
+        .card-mini {
+            background: white;
+            border-radius: 10px;
+            padding: 10px 12px;
+            box-shadow: 0 8px 18px rgba(2,6,23,0.06);
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            color: #0f172a;
+            line-height: 1.35;
+        }
+
+        .branch-contratos .branch-header { background: linear-gradient(90deg,#f093fb,#f5576c); }
+        .branch-compra-venda .branch-header { background: linear-gradient(90deg,#4facfe,#00f2fe); }
+        .branch-locacao .branch-header { background: linear-gradient(90deg,#43e97b,#38f9d7); }
+        .branch-mandato .branch-header { background: linear-gradient(90deg,#fa709a,#fee140); color:#111827; }
+        .branch-emprestimo .branch-header { background: linear-gradient(90deg,#a8edea,#fed6e3); color:#111827; }
+        .branch-invalidade .branch-header { background: linear-gradient(90deg,#ff9a9e,#fecfef); }
+
+        .branch-seguro .branch-header { background: linear-gradient(90deg,#a855f7,#c084fc); }
+
+        @media (max-width: 768px) {
+            .mind-root { width: 140px; height: 140px; }
+            .mind-columns { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 480px) {
+            .mind-root { width: 120px; height: 120px; }
+            .mind-columns { grid-template-columns: 1fr; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+
+            .nav-tabs {
+                padding: 4px;
+                gap: 4px;
+            }
+
+            .tab-btn {
+                padding: 12px 16px;
+                font-size: 0.95rem;
+            }
+
+            .study-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .topic-card {
+                padding: 16px;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .quiz-options label {
+                padding: 12px;
+                margin-bottom: 8px;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 16px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 12px;
+            }
+
+            .nav-tabs {
+                padding: 2px;
+            }
+
+            .tab-btn {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+
+            .topic-card {
+                padding: 12px;
+            }
+
+            .question-card {
+                padding: 16px;
+            }
+
+            .modal-content {
+                width: 98%;
+                margin: 8px;
+                padding: 16px;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 20px 0;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #e5e7eb;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-text {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            margin-bottom: 5px;
+        }
+
+        .footer-developer {
+            font-size: 0.8rem;
+            color: #d1d5db;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Direito Civil - Contratos</h1>
+            <div class="subtitle">Plataforma de Estudos e Simulados</div>
+        </header>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('estudar', this)">
+                <span>📚 Estudar</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('mapa-mental', this)">
+                <span>🧠 Mapa Mental</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('simulado', this)">
+                <span>📋 Simulado</span>
+            </button>
+        </div>
+
+        <!-- Estudar -->
+        <div id="estudar" class="content-area active">
+            <div class="study-grid">
+                <button type="button" class="topic-card" onclick="openModal('conceito-contrato')">
+                    <div class="topic-header">
+                        <div class="topic-icon">📄</div>
+                        <div class="topic-title">Conceito de Contrato</div>
+                    </div>
+                    <div class="topic-description">
+                        Definição jurídica de contrato como negócio jurídico bilateral ou plurilateral. Distinção entre contrato e ato jurídico unilateral. Função social do contrato e autonomia privada no Código Civil brasileiro.
+                    </div>
+                    <div class="topic-tags">
+                        <span class="tag">CC Art. 421</span>
+                        <span class="tag">Autonomia Privada</span>
+                        <span class="tag">Função Social</span>
+                    </div>
+                </button>
+
+                <button type="button" class="topic-card" onclick="openModal('elementos-contrato')">
+                    <div class="topic-header">
+                        <div class="topic-icon">🔧</div>
+                        <div class="topic-title">Elementos do Contrato</div>
+                    </div>
+                    <div class="topic-description">
+                        Elementos essenciais (agentes capazes, objeto lícito e forma prescrita) e acidentais (condição, termo, encargo). Análise dos requisitos de validade e eficácia dos contratos.
+                    </div>
+                    <div class="topic-tags">
+                        <span class="tag">CC Arts. 104-112</span>
+                        <span class="tag">Elementos Essenciais</span>
+                        <span class="tag">Validade</span>
+                    </div>
+                </button>
+
+                <button type="button" class="topic-card" onclick="openModal('classificacao-contratos')">
+                    <div class="topic-header">
+                        <div class="topic-icon">📊</div>
+                        <div class="topic-title">Classificação dos Contratos</div>
+                    </div>
+                    <div class="topic-description">
+                        Contratos unilaterais, bilaterais e plurilaterais. Contratos onerosos e gratuitos. Contratos comutativos e aleatórios. Contratos consensuais, reais e solenes.
+                    </div>
+                    <div class="topic-tags">
+                        <span class="tag">CC Arts. 421-422</span>
+                        <span class="tag">Tipologia</span>
+                        <span class="tag">Estrutura</span>
+                    </div>
+                </button>
+
+                <button type="button" class="topic-card" onclick="openModal('compra-venda')">
+                    <div class="topic-header">
+                        <div class="topic-icon">🛒</div>
+                        <div class="topic-title">Compra e Venda</div>
+                    </div>
+                    <div class="topic-description">
+                        Conceito, elementos e obrigações das partes. Cláusula de retrovenda, venda a contento, venda ad corpus e ad mensuram. Vícios redibitórios e evicção. Garantias no contrato de compra e venda.
+                    </div>
+                    <div class="topic-tags">
+                        <span class="tag">CC Arts. 481-532</span>
+                        <span class="tag">Vícios</span>
+                        <span class="tag">Evicção</span>
+                    </div>
+                </button>
+
+                <button type="button" class="topic-card" onclick="openModal('locacao')">
+                    <div class="topic-header">
+                        <div class="topic-icon">🏠</div>
+                        <div class="topic-title">Locação</div>
+                    </div>
+                    <div class="topic-description">
+                        Locação de coisas móveis e imóveis. Direitos e deveres do locador e locatário. Garantia locatícia. Resolução e resilição do contrato. Lei do Inquilinato (Lei 8.245/91).
+                    </div>
+                    <div class="topic-tags">
+                        <span class="tag">CC Arts. 565-578</span>
+                        <span class="tag">Lei 8.245/91</span>
+                        <span class="tag">Direitos Reais</span>
+                    </div>
+                </button>
+
+                <button type="button" class="topic-card" onclick="openModal('mandato')">
+                    <div class="topic-header">
+                        <div class="topic-icon">📝</div>
+                        <div class="topic-title">Mandato</div>
+                    </div>
+                    <div class="topic-description">
+                        Conceito e natureza jurídica. Espécies de mandato (geral, especial, judicial). Obrigações do mandatário e mandante. Extinção do mandato. Procuração e substabelecimento.
+                    </div>
+                    <div class="topic-tags">
+                        <span class="tag">CC Arts. 653-692</span>
+                        <span class="tag">Representação</span>
+                        <span class="tag">Procuração</span>
+                    </div>
+                </button>
+
+                <button type="button" class="topic-card" onclick="openModal('emprestimo')">
+                    <div class="topic-header">
+                        <div class="topic-icon">💰</div>
+                        <div class="topic-title">Empréstimo</div>
+                    </div>
+                    <div class="topic-description">
+                        Comodato (emprestimo gratuito) e mútuo (emprestimo oneroso). Requisitos, obrigações e responsabilidades. Juros e correção monetária no mútuo. Extinção dos contratos de empréstimo.
+                    </div>
+                    <div class="topic-tags">
+                        <span class="tag">CC Arts. 579-600</span>
+                        <span class="tag">Comodato</span>
+                        <span class="tag">Mútuo</span>
+                    </div>
+                </button>
+
+                <button type="button" class="topic-card" onclick="openModal('invalidade-contratos')">
+                    <div class="topic-header">
+                        <div class="topic-icon">❌</div>
+                        <div class="topic-title">Invalidade dos Contratos</div>
+                    </div>
+                    <div class="topic-description">
+                        Nulidade e anulabilidade. Vícios do consentimento (erro, dolo, coação, estado de perigo, lesão). Ineficácia relativa e absoluta. Prescrição das ações de invalidade.
+                    </div>
+                    <div class="topic-tags">
+                        <span class="tag">CC Arts. 166-184</span>
+                        <span class="tag">Vícios</span>
+                        <span class="tag">Prescrição</span>
+                    </div>
+                </button>
+
+                <button type="button" class="topic-card" onclick="openModal('resolucao-contratos')">
+                    <div class="topic-header">
+                        <div class="topic-icon">🔄</div>
+                        <div class="topic-title">Resolução e Resilição</div>
+                    </div>
+                    <div class="topic-description">
+                        Distinção entre resolução e resilição. Cláusula resolutiva expressa e tácita. Exceção de contrato não cumprido. Resolução por onerosidade excessiva. Efeitos da resolução.
+                    </div>
+                    <div class="topic-tags">
+                        <span class="tag">CC Arts. 474-480</span>
+                        <span class="tag">Exceção</span>
+                        <span class="tag">Onerosidade</span>
+                    </div>
+                </button>
+
+                <button type="button" class="topic-card" onclick="openModal('contrato-seguro')">
+                    <div class="topic-header">
+                        <div class="topic-icon">🛡️</div>
+                        <div class="topic-title">Contrato de Seguro</div>
+                    </div>
+                    <div class="topic-description">
+                        Conceito e elementos. Seguro de dano e seguro de pessoa. Obrigações do segurado e segurador. Agravamento do risco. Inadimplemento do prêmio. Resolução do contrato.
+                    </div>
+                    <div class="topic-tags">
+                        <span class="tag">CC Arts. 757-802</span>
+                        <span class="tag">Seguro de Vida</span>
+                        <span class="tag">Prêmio</span>
+                    </div>
+                </button>
+            </div>
+
+            <div class="resources-section">
+                <h3>🔗 Recursos Jurídicos</h3>
+                <div class="resources-grid">
+                    <a href="https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm" target="_blank" class="resource-card">
+                        <div class="resource-icon">⚖️</div>
+                        <div class="resource-title">Código Civil</div>
+                        <div class="resource-desc">Lei 10.406/2002</div>
+                    </a>
+                    <a href="https://www.stj.jus.br" target="_blank" class="resource-card">
+                        <div class="resource-icon">🏛️</div>
+                        <div class="resource-title">STJ</div>
+                        <div class="resource-desc">Superior Tribunal de Justiça</div>
+                    </a>
+                    <a href="https://portal.stf.jus.br" target="_blank" class="resource-card">
+                        <div class="resource-icon">📜</div>
+                        <div class="resource-title">STF</div>
+                        <div class="resource-desc">Supremo Tribunal Federal</div>
+                    </a>
+                    <a href="gabarito_professor.html" class="resource-card">
+                        <div class="resource-icon">📋</div>
+                        <div class="resource-title">Gabarito</div>
+                        <div class="resource-desc">Respostas comentadas</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Simulado -->
+        <div id="simulado" class="content-area">
+            <div class="quiz-intro">
+                <h2>Simulado de Direito Civil - Contratos</h2>
+                <p>Responda às 4 questões sobre contratos no Direito Civil. Cada questão possui 5 alternativas (A a E). Ao finalizar, utilize "Corrigir" para receber feedback por item.</p>
+                <div class="quiz-info">
+                    <span>⏱️ 15 minutos</span>
+                    <span>📊 4 questões</span>
+                </div>
+            </div>
+
+            <!-- Questões -->
+            <div class="question-card">
+                <div class="question-header">
+                    <div class="question-number">Questão 1</div>
+                    <div class="difficulty medium">Médio</div>
+                </div>
+                <div class="question-text">
+                    Basilio emprestou R$ 30.000,00 para Marcela. Exigiu garantia fidejussória. O contrato foi assinado por Marcela e pelo fiador Joaquim. Marcela não pagou a dívida. Basilio ingressou com ação em face da devedora principal e do fiador. Joaquim, no momento da contratação, omitiu que era casado com Maria. O credor exige do fiador o crédito total ou ao menos o pagamento da metade da dívida. Tem razão? (Prova juiz de direito TJ-SP 2023)
+                </div>
+                <div class="quiz-options">
+                    <label class="opt">
+                        <input type="radio" name="q1" value="A">
+                        <span>A) Sim, o fiador deve pagar o crédito total, pois a fiança é válida.</span>
+                        <span class="icon">✗</span>
+                    </label>
+                    <label class="opt">
+                        <input type="radio" name="q1" value="B">
+                        <span>B) Sim, mas apenas pela metade da dívida, pois a fiança é parcialmente válida.</span>
+                        <span class="icon">✗</span>
+                    </label>
+                    <label class="opt correct">
+                        <input type="radio" name="q1" value="C">
+                        <span>C) Não, a fiança é totalmente inválida pela ausência de outorga conjugal.</span>
+                        <span class="icon">✓</span>
+                    </label>
+                    <label class="opt">
+                        <input type="radio" name="q1" value="D">
+                        <span>D) Sim, pois a omissão não invalida a garantia fidejussória.</span>
+                        <span class="icon">✗</span>
+                    </label>
+                    <label class="opt">
+                        <input type="radio" name="q1" value="E">
+                        <span>E) Não, mas o fiador pode ser compelido a pagar se houver prova de conhecimento prévio.</span>
+                        <span class="icon">✗</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-header">
+                    <div class="question-number">Questão 2</div>
+                    <div class="difficulty medium">Médio</div>
+                </div>
+                <div class="question-text">
+                    Uma fundação privada dedicada a memória de um célebre arquiteto divulgou anúncio por meio do qual se comprometia a pagar uma vultosa recompensa para a primeira pessoa que fosse capaz de localizar e trazer à sede da fundação um armário específico projetado por aquele arquiteto. Estima-se que apenas dez exemplares do referido armário tenham sido produzidos no mundo, pois os originais do projeto da peça se perderam há muitos anos. A campanha, veiculada por prazo indeterminado pela fundação, destinava-se a viabilizar que fossem tiradas medidas e especificações do armário, o que permitiria à fundação reconstituir seu projeto técnico para exibi-lo em uma exposição permanente. Após alguns meses de veiculação do anúncio, tomando conhecimento da campanha, Adalberto, dono de um dos raros exemplares do armário, que há muito pertencia à sua familia, apresentou-se à sede da fundação com a peça para receber a soma em dinheiro prometida. Lá chegando, porém, recebeu a noticia de que a campanha havia sido cancelada pela fundação alguns dias antes e que, por isso, nenhuma recompensa the seria devida. Adalberto lhe consulta sobre os seus direitos. Que orientação juridica você daria a ele? (Prova para analista do TCE-TO-2022)
+                </div>
+                <div class="quiz-options">
+                    <label class="opt">
+                        <input type="radio" name="q2" value="A">
+                        <span>A) Não tem direito à recompensa, pois a campanha foi cancelada.</span>
+                        <span class="icon">✗</span>
+                    </label>
+                    <label class="opt">
+                        <input type="radio" name="q2" value="B">
+                        <span>B) Tem direito apenas à metade da recompensa prometida.</span>
+                        <span class="icon">✗</span>
+                    </label>
+                    <label class="opt correct">
+                        <input type="radio" name="q2" value="C">
+                        <span>C) Tem direito à recompensa integral, pois cumpriu a condição estabelecida.</span>
+                        <span class="icon">✓</span>
+                    </label>
+                    <label class="opt">
+                        <input type="radio" name="q2" value="D">
+                        <span>D) Tem direito apenas se provar que o cancelamento não foi devidamente publicizado.</span>
+                        <span class="icon">✗</span>
+                    </label>
+                    <label class="opt">
+                        <input type="radio" name="q2" value="E">
+                        <span>E) Não tem direito, pois a promessa era condicional ao prazo indeterminado.</span>
+                        <span class="icon">✗</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-header">
+                    <div class="question-number">Questão 3</div>
+                    <div class="difficulty medium">Médio</div>
+                </div>
+                <div class="question-text">
+                    Andréa sempre foi bastante cautelosa, tendo celebrado seguro de vida em beneficio dos filhos e também fez seguro sobre o seu automóvel. No último dia 15, todavia, bebeu três cervejas com amigos e faleceu em decorrência de um acidente ao conduzir seu veículo. A seguradora se recusou a indenizar os sucessores de Andréa. Tem razão? (Concurso Defensor Público Mato Grosso do Sul -2022)
+                </div>
+                <div class="quiz-options">
+                    <label class="opt">
+                        <input type="radio" name="q3" value="A">
+                        <span>A) Não tem razão, deve indenizar ambos os seguros integralmente.</span>
+                        <span class="icon">✗</span>
+                    </label>
+                    <label class="opt">
+                        <input type="radio" name="q3" value="B">
+                        <span>B) Tem razão, não deve indenizar nenhum dos seguros.</span>
+                        <span class="icon">✗</span>
+                    </label>
+                    <label class="opt correct">
+                        <input type="radio" name="q3" value="C">
+                        <span>C) Tem razão parcial: deve indenizar o seguro de vida, mas não o de automóvel.</span>
+                        <span class="icon">✓</span>
+                    </label>
+                    <label class="opt">
+                        <input type="radio" name="q3" value="D">
+                        <span>D) Tem razão parcial: deve indenizar o seguro de automóvel, mas não o de vida.</span>
+                        <span class="icon">✗</span>
+                    </label>
+                    <label class="opt">
+                        <input type="radio" name="q3" value="E">
+                        <span>E) Não tem razão, deve indenizar ambos com redução proporcional.</span>
+                        <span class="icon">✗</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-header">
+                    <div class="question-number">Questão 4</div>
+                    <div class="difficulty medium">Médio</div>
+                </div>
+                <div class="question-text">
+                    Juliana contratou um seguro por danos pessoais cujo valor do prêmio era de R$ 1.200,00 (mil e duzentos reais), parcelados em 12 (doze) vezes. Durante a execução do seguro, Juliana ficou desempregada e parou de pagar as parcelas do prêmio. Dois meses depois, Juliana quebrou a perna em um acidente de bicicleta e decidiu acionar o seguro para recebimento dos valores relativos aos danos pessoais e morais que sofreu em razão do acidente de bicicleta. Pode Juliana exigir a indenização da seguradora? (Concurso para Procurador do Municipio de Bertioga-2021)
+                </div>
+                <div class="quiz-options">
+                    <label class="opt">
+                        <input type="radio" name="q4" value="A">
+                        <span>A) Sim, pode exigir a indenização integral.</span>
+                        <span class="icon">✗</span>
+                    </label>
+                    <label class="opt correct">
+                        <input type="radio" name="q4" value="B">
+                        <span>B) Não, não pode exigir a indenização.</span>
+                        <span class="icon">✓</span>
+                    </label>
+                    <label class="opt">
+                        <input type="radio" name="q4" value="C">
+                        <span>C) Sim, mas com redução proporcional ao período pago.</span>
+                        <span class="icon">✗</span>
+                    </label>
+                    <label class="opt">
+                        <input type="radio" name="q4" value="D">
+                        <span>D) Sim, se comprovar que o desemprego foi causa de força maior.</span>
+                        <span class="icon">✗</span>
+                    </label>
+                    <label class="opt">
+                        <input type="radio" name="q4" value="E">
+                        <span>E) Sim, desde que pague as parcelas em atraso antes do sinistro.</span>
+                        <span class="icon">✗</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Botão Ver Resultado -->
+            <div class="result-section">
+                <button id="corrigir-btn" class="show-answer-btn" onclick="corrigirQuestoes()">
+                    <span>✅</span> Corrigir
+                </button>
+                <a href="gabarito_professor.html" class="show-answer-btn" style="margin-left:12px; text-decoration:none; display:inline-flex; align-items:center;" target="_blank">
+                    <span>📚</span> Gabarito do Professor
+                </a>
+                <div id="resultado" class="resultado-card" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mapa Mental -->
+    <div id="mapa-mental" class="content-area">
+        <div class="mind-map-container">
+            <h2 class="mind-map-title">🧠 Mapa Mental - Direito Civil: Contratos</h2>
+
+            <div class="mind-map-tree">
+                <div class="mind-map-root">
+                    <div class="mind-map-node root" onclick="openModal('central')">
+                        <span class="mind-map-node-icon">📄</span>
+                        <div class="mind-map-node-title">Contratos</div>
+                        <div class="mind-map-node-desc">Direito Civil</div>
+                    </div>
+                </div>
+
+                <svg class="mind-map-connection" width="100%" height="200" viewBox="0 0 800 200">
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7"
+                                refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="var(--primary)" />
+                        </marker>
+                    </defs>
+                    <path class="connection-path" d="M400,80 Q350,120 300,160" marker-end="url(#arrowhead)"/>
+                    <path class="connection-path" d="M400,80 Q400,120 400,160" marker-end="url(#arrowhead)"/>
+                    <path class="connection-path" d="M400,80 Q450,120 500,160" marker-end="url(#arrowhead)"/>
+                    <path class="connection-path" d="M400,80 Q320,140 240,180" marker-end="url(#arrowhead)"/>
+                    <path class="connection-path" d="M400,80 Q480,140 560,180" marker-end="url(#arrowhead)"/>
+                    <path class="connection-path" d="M400,80 Q380,160 360,200" marker-end="url(#arrowhead)"/>
+                </svg>
+
+                <div class="mind-map-branches">
+                </div>
+
+            </div>
+
+            <svg class="mind-lines" viewBox="0 0 1200 180" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M600,80 C480,80 360,100 240,120" stroke="#c7d2fe" stroke-width="6" fill="none" stroke-linecap="round" />
+                <path d="M600,80 C540,82 480,96 420,116" stroke="#d8f7ff" stroke-width="6" fill="none" stroke-linecap="round" />
+                <path d="M600,80 C660,82 720,98 780,120" stroke="#fde2e4" stroke-width="6" fill="none" stroke-linecap="round" />
+                <path d="M600,80 C840,90 960,110 1080,130" stroke="#e6fffa" stroke-width="6" fill="none" stroke-linecap="round" />
+            </svg>
+
+            <div class="mind-columns" role="list">
+                <div class="branch branch-contratos" role="listitem">
+                    <div class="branch-header">Teoria Geral</div>
+                    <div class="column-cards">
+                        <div class="card-mini">Conceito de contrato</div>
+                        <div class="card-mini">Elementos essenciais</div>
+                        <div class="card-mini">Classificação</div>
+                    </div>
+                </div>
+
+                <div class="branch branch-compra-venda" role="listitem">
+                    <div class="branch-header">Compra e Venda</div>
+                    <div class="column-cards">
+                        <div class="card-mini">Obrigações das partes</div>
+                        <div class="card-mini">Vícios redibitórios</div>
+                        <div class="card-mini">Evicção</div>
+                    </div>
+                </div>
+
+                <div class="branch branch-locacao" role="listitem">
+                    <div class="branch-header">Locação</div>
+                    <div class="column-cards">
+                        <div class="card-mini">Locação de imóveis</div>
+                        <div class="card-mini">Lei do Inquilinato</div>
+                        <div class="card-mini">Garantias</div>
+                    </div>
+                </div>
+
+                <div class="branch branch-mandato" role="listitem">
+                    <div class="branch-header">Mandato</div>
+                    <div class="column-cards">
+                        <div class="card-mini">Representação</div>
+                        <div class="card-mini">Procuração</div>
+                        <div class="card-mini">Extinção</div>
+                    </div>
+                </div>
+
+                <div class="branch branch-emprestimo" role="listitem">
+                    <div class="branch-header">Empréstimo</div>
+                    <div class="column-cards">
+                        <div class="card-mini">Comodato</div>
+                        <div class="card-mini">Mútuo</div>
+                        <div class="card-mini">Juros</div>
+                    </div>
+                </div>
+
+                <div class="branch branch-invalidade" role="listitem">
+                    <div class="branch-header">Invalidade</div>
+                    <div class="column-cards">
+                        <div class="card-mini">Nulidade</div>
+                        <div class="card-mini">Anulabilidade</div>
+                        <div class="card-mini">Vícios do consentimento</div>
+                    </div>
+                </div>
+
+                <div class="branch branch-seguro" role="listitem">
+                    <div class="branch-header">Contrato de Seguro</div>
+                    <div class="column-cards">
+                        <div class="card-mini">Seguro de dano e pessoa</div>
+                        <div class="card-mini">Agravamento do risco</div>
+                        <div class="card-mini">Inadimplemento do prêmio</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modais -->
+    <div id="modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title"></h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Conteúdo será inserido dinamicamente -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Direito Administrativo</a>
+                <a href="civil.html">Direito Civil</a>
+                <a href="politica_lgpd.html">LGPD</a>
+                <a href="termos_de_uso.html">Termos de Uso</a>
+            </div>
+            <div class="footer-text">© 2024 Plataforma de Estudos Jurídicos</div>
+            <div class="footer-developer">Desenvolvido por Professor Carlos Piquet</div>
+        </div>
+    </footer>
+
+    <script>
+        // Dados dos modais
+        const modalData = {
+            'conceito-contrato': {
+                title: 'Conceito de Contrato',
+                content: `
+                    <p><strong>Definição Jurídica:</strong> O contrato é um negócio jurídico bilateral ou plurilateral, pelo qual duas ou mais pessoas reciprocamente se obrigam, estabelecendo direitos e deveres recíprocos.</p>
+                    
+                    <div class="modal-highlight">
+                        <strong>Art. 421 do CC:</strong> A liberdade de contratar será exercida em razão e nos limites da função social do contrato.
+                    </div>
+                    
+                    <p><strong>Características Essenciais:</strong></p>
+                    <ul>
+                        <li>Negócio jurídico bilateral ou plurilateral</li>
+                        <li>Reciprocidade de obrigações</li>
+                        <li>Autonomia privada</li>
+                        <li>Função social</li>
+                    </ul>
+                    
+                    <p><strong>Distinção com ato unilateral:</strong> No contrato, há acordo de vontades; no ato unilateral, uma só vontade é suficiente para produzir efeitos jurídicos.</p>
+                    
+                    <div class="modal-case">
+                        <strong>Caso Prático:</strong> A compra de um imóvel requer acordo entre comprador e vendedor. Não se trata de ato unilateral, pois ambos devem concordar com os termos.
+                    </div>
+                `
+            },
+            'elementos-contrato': {
+                title: 'Elementos do Contrato',
+                content: `
+                    <p><strong>Elementos Essenciais (Arts. 104-112 CC):</strong></p>
+                    <ol>
+                        <li><strong>Agentes capazes:</strong> As partes devem ter capacidade de fato e de direito</li>
+                        <li><strong>Objeto lícito, possível, determinado ou determinável:</strong> O bem ou serviço deve ser permitido por lei</li>
+                        <li><strong>Forma prescrita ou não defesa em lei:</strong> Quando exigida por lei</li>
+                    </ol>
+                    
+                    <p><strong>Elementos Acidentais:</strong></p>
+                    <ul>
+                        <li>Condição (suspensiva ou resolutiva)</li>
+                        <li>Termo (inicial ou final)</li>
+                        <li>Encargo (modo)</li>
+                    </ul>
+                    
+                    <div class="modal-highlight">
+                        <strong>Requisitos de Validade:</strong> Capacidade, objeto lícito e forma adequada garantem a validade do contrato.
+                    </div>
+                    
+                    <div class="modal-case">
+                        <strong>Exemplo:</strong> Um contrato de compra e venda de imóvel deve ser por escrito (forma essencial) e ter objeto determinado (o imóvel específico).
+                    </div>
+                `
+            },
+            'classificacao-contratos': {
+                title: 'Classificação dos Contratos',
+                content: `
+                    <p><strong>Quanto às Obrigações:</strong></p>
+                    <ul>
+                        <li><strong>Unilaterais:</strong> Só uma parte se obriga (ex: doação)</li>
+                        <li><strong>Bilaterais:</strong> Ambas as partes se obrigam (ex: compra e venda)</li>
+                        <li><strong>Plurilaterais:</strong> Mais de duas partes (ex: sociedade)</li>
+                    </ul>
+                    
+                    <p><strong>Quanto à Ônus:</strong></p>
+                    <ul>
+                        <li><strong>Onerosos:</strong> Há sacrifício patrimonial para ambas as partes</li>
+                        <li><strong>Gratuitos:</strong> Uma parte aufere benefício sem contraprestação</li>
+                    </ul>
+                    
+                    <p><strong>Quanto ao Risco:</strong></p>
+                    <ul>
+                        <li><strong>Comutativos:</strong> Obrigações certas e determinadas</li>
+                        <li><strong>Aleatórios:</strong> Obrigações dependem de evento futuro incerto</li>
+                    </ul>
+                    
+                    <p><strong>Quanto à Perfeição:</strong></p>
+                    <ul>
+                        <li><strong>Consensuais:</strong> Perfeitos pelo simples acordo (ex: compra e venda)</li>
+                        <li><strong>Reais:</strong> Requerem tradição da coisa (ex: mútuo)</li>
+                        <li><strong>Solenes:</strong> Exigem forma especial (ex: testamento)</li>
+                    </ul>
+                `
+            },
+            'compra-venda': {
+                title: 'Compra e Venda',
+                content: `
+                    <p><strong>Conceito (Art. 481 CC):</strong> É o contrato pelo qual uma das partes se obriga a transferir o domínio de certa coisa, e a outra, a pagar-lhe certo preço em dinheiro.</p>
+                    
+                    <p><strong>Elementos Essenciais:</strong></p>
+                    <ul>
+                        <li>Coisa (mercadoria)</li>
+                        <li>Preço em dinheiro</li>
+                        <li>Consentimento</li>
+                    </ul>
+                    
+                    <p><strong>Obrigações do Vendedor:</strong></p>
+                    <ul>
+                        <li>Entregar a coisa</li>
+                        <li>Garantir contra evicção</li>
+                        <li>Garantir contra vícios redibitórios</li>
+                    </ul>
+                    
+                    <p><strong>Obrigações do Comprador:</strong></p>
+                    <ul>
+                        <li>Pagar o preço</li>
+                        <li>Receber a coisa</li>
+                    </ul>
+                    
+                    <div class="modal-highlight">
+                        <strong>Vícios Redibitórios:</strong> Defeitos ocultos que tornam a coisa imprópria ao uso ou diminuem seu valor (Arts. 441-446 CC).
+                    </div>
+                    
+                    <div class="modal-case">
+                        <strong>Evicção:</strong> Perda da coisa por sentença judicial que reconhece direito de terceiro (Arts. 447-457 CC).
+                    </div>
+                `
+            },
+            'locacao': {
+                title: 'Locação',
+                content: `
+                    <p><strong>Conceito:</strong> Contrato pelo qual uma das partes se obriga a ceder à outra, temporariamente, o uso e gozo de coisa não fungível, mediante certa retribuição.</p>
+                    
+                    <p><strong>Espécies:</strong></p>
+                    <ul>
+                        <li>Locação de coisas móveis</li>
+                        <li>Locação de imóveis (Lei 8.245/91)</li>
+                        <li>Locação de serviços</li>
+                    </ul>
+                    
+                    <p><strong>Direitos do Locador:</strong></p>
+                    <ul>
+                        <li>Receber aluguéis</li>
+                        <li>Reaver a coisa ao fim do prazo</li>
+                        <li>Rescindir por falta de pagamento</li>
+                    </ul>
+                    
+                    <p><strong>Direitos do Locatário:</strong></p>
+                    <ul>
+                        <li>Usar e gozar da coisa</li>
+                        <li>Fazer reparos necessários</li>
+                        <li>Prorrogação automática (imóveis urbanos)</li>
+                    </ul>
+                    
+                    <div class="modal-highlight">
+                        <strong>Garantia Locatícia:</strong> Caução, fiador, seguro-fiança ou cessão fiduciária de quotas.
+                    </div>
+                    
+                    <div class="modal-case">
+                        <strong>Lei do Inquilinato:</strong> Regula especificamente a locação de imóveis urbanos, prevendo direitos especiais ao locatário.
+                    </div>
+                `
+            },
+            'mandato': {
+                title: 'Mandato',
+                content: `
+                    <p><strong>Conceito (Art. 653 CC):</strong> É o contrato pelo qual uma pessoa recebe de outra poderes para, em seu nome, praticar atos ou administrar interesses.</p>
+                    
+                    <p><strong>Espécies:</strong></p>
+                    <ul>
+                        <li><strong>Geral:</strong> Para administrar todos os negócios do mandante</li>
+                        <li><strong>Especial:</strong> Para ato determinado</li>
+                        <li><strong>Judicial:</strong> Para representação em juízo</li>
+                    </ul>
+                    
+                    <p><strong>Obrigações do Mandatário:</strong></p>
+                    <ul>
+                        <li>Exercer o mandato com diligência</li>
+                        <li>Prestar contas</li>
+                        <li>Agir dentro dos limites do mandato</li>
+                    </ul>
+                    
+                    <p><strong>Obrigações do Mandante:</strong></p>
+                    <ul>
+                        <li>Pagar remuneração (se onerosa)</li>
+                        <li>Indenizar despesas</li>
+                        <li>Aceitar atos praticados</li>
+                    </ul>
+                    
+                    <div class="modal-highlight">
+                        <strong>Procuração:</strong> Instrumento do mandato, documento que comprova os poderes conferidos.
+                    </div>
+                    
+                    <div class="modal-case">
+                        <strong>Substabelecimento:</strong> O mandatário pode transferir o mandato a terceiro, salvo cláusula proibitiva.
+                    </div>
+                `
+            },
+            'emprestimo': {
+                title: 'Empréstimo',
+                content: `
+                    <p><strong>Espécies:</strong></p>
+                    <ul>
+                        <li><strong>Comodato:</strong> Empréstimo gratuito de coisa não fungível</li>
+                        <li><strong>Mútuo:</strong> Empréstimo oneroso de coisa fungível</li>
+                    </ul>
+                    
+                    <p><strong>Comodato (Arts. 579-585 CC):</strong></p>
+                    <ul>
+                        <li>Contrato real e gratuito</li>
+                        <li>Obrigação de restituir a mesma coisa</li>
+                        <li>Riscos da coisa correm por conta do comodatário</li>
+                    </ul>
+                    
+                    <p><strong>Mútuo (Arts. 586-592 CC):</strong></p>
+                    <ul>
+                        <li>Contrato real e oneroso</li>
+                        <li>Obrigação de restituir coisas do mesmo gênero, qualidade e quantidade</li>
+                        <li>Possibilidade de juros (se convencionados)</li>
+                    </ul>
+                    
+                    <div class="modal-highlight">
+                        <strong>Juros:</strong> No mútuo, podem ser convencionados, respeitando os limites legais (juros de mora: 1% ao mês).
+                    </div>
+                    
+                    <div class="modal-case">
+                        <strong>Exemplo:</strong> Empréstimo de dinheiro (mútuo) gera obrigação de devolver a mesma quantia, acrescida de juros se pactuados.
+                    </div>
+                `
+            },
+            'invalidade-contratos': {
+                title: 'Invalidade dos Contratos',
+                content: `
+                    <p><strong>Nulidade (Art. 166 CC):</strong> Ineficácia absoluta, pode ser alegada por qualquer interessado, não se convalida pelo tempo.</p>
+                    
+                    <p><strong>Anulabilidade (Art. 171 CC):</strong> Ineficácia relativa, só pode ser alegada pelas partes, convalida-se pelo tempo (prescrição).</p>
+                    
+                    <p><strong>Vícios do Consentimento:</strong></p>
+                    <ul>
+                        <li><strong>Erro (Arts. 138-144):</strong> Falsa representação da realidade</li>
+                        <li><strong>Dolo (Arts. 145-150):</strong> Indução à prática do ato mediante ardil</li>
+                        <li><strong>Coação (Arts. 151-155):</strong> Violência ou grave ameaça</li>
+                        <li><strong>Estado de Perigo (Art. 156):</strong> Situação de necessidade</li>
+                        <li><strong>Lesão (Arts. 157-165):</strong> Desproporção excessiva</li>
+                    </ul>
+                    
+                    <div class="modal-highlight">
+                        <strong>Prescrição:</strong> Ações de anulabilidade prescrevem em 4 anos (art. 178 CC), salvo casos especiais.
+                    </div>
+                    
+                    <div class="modal-case">
+                        <strong>Exemplo:</strong> Contrato firmado sob coação pode ser anulado, mas apenas pelo coacto, dentro do prazo prescricional.
+                    </div>
+                `
+            },
+            'resolucao-contratos': {
+                title: 'Resolução e Resilição',
+                content: `
+                    <p><strong>Resolução (Art. 474 CC):</strong> Extinção do contrato por inadimplemento de uma das partes ou por cláusula resolutiva.</p>
+                    
+                    <p><strong>Resilição:</strong> Extinção por mútuo acordo ou denúncia unilateral (quando permitida).</p>
+                    
+                    <p><strong>Cláusula Resolutiva:</strong></p>
+                    <ul>
+                        <li><strong>Expressa:</strong> Prevista no contrato</li>
+                        <li><strong>Tácita:</strong> Decorre da natureza do contrato</li>
+                    </ul>
+                    
+                    <p><strong>Exceção de Contrato não Cumprido (Art. 476 CC):</strong> Permite ao credor recusar prestação enquanto o devedor não cumprir a sua.</p>
+                    
+                    <div class="modal-highlight">
+                        <strong>Onerosidade Excessiva (Art. 478 CC):</strong> Permite resolução quando circunstâncias supervenientes tornem excessivamente onerosa a prestação.
+                    </div>
+                    
+                    <div class="modal-case">
+                        <strong>Efeitos:</strong> A resolução retroage à data da celebração, com restituição das partes ao estado anterior.
+                    </div>
+                `
+            },
+            'contrato-seguro': {
+                title: 'Contrato de Seguro',
+                content: `
+                    <p><strong>Conceito (Art. 757 CC):</strong> É o contrato pelo qual uma das partes se obriga para com a outra, mediante remuneração, a indenizar-lhe o prejuízo resultante de risco futuro e incerto.</p>
+                    
+                    <p><strong>Elementos Essenciais:</strong></p>
+                    <ul>
+                        <li>Risco futuro e incerto</li>
+                        <li>Remuneração (prêmio)</li>
+                        <li>Indenização por prejuízo</li>
+                    </ul>
+                    
+                    <p><strong>Classificação:</strong></p>
+                    <ul>
+                        <li><strong>Seguro de Dano:</strong> Cobre prejuízos materiais (automóvel, residência)</li>
+                        <li><strong>Seguro de Pessoa:</strong> Cobre danos à pessoa (vida, acidentes pessoais)</li>
+                    </ul>
+                    
+                    <p><strong>Obrigações do Segurado:</strong></p>
+                    <ul>
+                        <li>Pagar o prêmio</li>
+                        <li>Declarar corretamente o risco</li>
+                        <li>Não agravar o risco</li>
+                        <li>Comunicar sinistro</li>
+                    </ul>
+                    
+                    <p><strong>Obrigações do Segurador:</strong></p>
+                    <ul>
+                        <li>Pagar indenização em caso de sinistro</li>
+                        <li>Fornecer apólice</li>
+                        <li>Defender direitos do segurado</li>
+                    </ul>
+                    
+                    <div class="modal-highlight">
+                        <strong>Agravamento do Risco (Art. 768 CC):</strong> O segurado perde o direito se agravar intencionalmente o risco. No seguro de vida, a embriaguez não exclui cobertura (Súmula 620 STJ).
+                    </div>
+                    
+                    <div class="modal-case">
+                        <strong>Inadimplemento do Prêmio:</strong> Suspende a cobertura automaticamente (Súmula 616 STJ), não autorizando resolução unilateral, mas impedindo indenização se sinistro ocorrer durante mora.
+                    </div>
+                `
+            },
+            'central': {
+                title: 'Teoria Geral dos Contratos',
+                content: `
+                    <p><strong>Função Social do Contrato:</strong> O contrato não deve prejudicar terceiros nem violar a ordem pública.</p>
+                    
+                    <p><strong>Princípios Aplicáveis:</strong></p>
+                    <ul>
+                        <li>Autonomia privada</li>
+                        <li>Bom-fé objetiva</li>
+                        <li>Equilíbrio contratual</li>
+                        <li>Força obrigatória</li>
+                    </ul>
+                    
+                    <div class="modal-highlight">
+                        <strong>Interpretação:</strong> Os contratos devem ser interpretados conforme a boa-fé e os usos do lugar de sua celebração.
+                    </div>
+                `
+            }
+        };
+
+        // Funções de navegação
+        function switchTab(tabName, button) {
+            // Esconder todas as abas
+            const contentAreas = document.querySelectorAll('.content-area');
+            contentAreas.forEach(area => area.classList.remove('active'));
+            
+            // Remover classe active de todos os botões
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+            
+            // Mostrar aba selecionada
+            document.getElementById(tabName).classList.add('active');
+            button.classList.add('active');
+        }
+
+        // Funções dos modais
+        function openModal(modalId) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modal-title');
+            const body = document.getElementById('modal-body');
+            
+            if (modalData[modalId]) {
+                title.textContent = modalData[modalId].title;
+                body.innerHTML = modalData[modalId].content;
+                modal.style.display = 'flex';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // Fechar modal ao clicar fora
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Simulado - será implementado posteriormente
+        function corrigirQuestoes() {
+            const respostasCorretas = {
+                q1: 'C',
+                q2: 'C', 
+                q3: 'C',
+                q4: 'B'
+            };
+            
+            let acertos = 0;
+            const totalQuestoes = 4;
+            
+            // Verificar cada questão
+            for (let i = 1; i <= totalQuestoes; i++) {
+                const questao = `q${i}`;
+                const respostaSelecionada = document.querySelector(`input[name="${questao}"]:checked`);
+                const opcoes = document.querySelectorAll(`input[name="${questao}"]`);
+                
+                // Resetar classes anteriores
+                opcoes.forEach(op => {
+                    op.closest('.opt').classList.remove('correct', 'wrong');
+                });
+                
+                if (respostaSelecionada) {
+                    const valor = respostaSelecionada.value;
+                    const optElement = respostaSelecionada.closest('.opt');
+                    
+                    if (valor === respostasCorretas[questao]) {
+                        optElement.classList.add('correct');
+                        acertos++;
+                    } else {
+                        optElement.classList.add('wrong');
+                        // Mostrar a correta
+                        const correta = document.querySelector(`input[name="${questao}"][value="${respostasCorretas[questao]}"]`);
+                        if (correta) {
+                            correta.closest('.opt').classList.add('correct');
+                        }
+                    }
+                } else {
+                    // Se não respondeu, mostrar correta
+                    const correta = document.querySelector(`input[name="${questao}"][value="${respostasCorretas[questao]}"]`);
+                    if (correta) {
+                        correta.closest('.opt').classList.add('correct');
+                    }
+                }
+            }
+            
+            // Calcular porcentagem
+            const porcentagem = Math.round((acertos / totalQuestoes) * 100);
+            
+            // Determinar feedback
+            let feedback = '';
+            if (porcentagem >= 75) {
+                feedback = 'Excelente! Você demonstrou domínio dos temas.';
+            } else if (porcentagem >= 50) {
+                feedback = 'Bom desempenho! Revise os pontos não acertados.';
+            } else {
+                feedback = 'Precisa de mais estudo. Reveja os conceitos fundamentais.';
+            }
+            
+            // Mostrar resultado
+            const resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.innerHTML = `
+                <div class="resultado-header">
+                    <h3>Resultado do Simulado</h3>
+                </div>
+                <div class="resultado-score">
+                    <div class="score-number">${acertos}/${totalQuestoes}</div>
+                    <div class="score-percentage">${porcentagem}%</div>
+                </div>
+                <div class="resultado-feedback">
+                    <p>${feedback}</p>
+                    <p><strong>Legendas:</strong> ✓ Resposta correta | ✗ Resposta incorreta</p>
+                </div>
+            `;
+            resultadoDiv.style.display = 'block';
+            
+            // Scroll para resultado
+            resultadoDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
